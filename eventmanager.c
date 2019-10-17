@@ -126,8 +126,18 @@ static void EventManager_mappingNotify(EventManager* self, XMappingEvent* event)
 }
 
 static void EventManager_mapRequest(EventManager* self, XMapRequestEvent* event) {
-    (void)self; (void)event;
-    puts("mapRequest");
+    puts("mapRequestStart");
+    unsigned int monitorWidth = (unsigned int)DisplayWidth(self->display, self->screen);
+    unsigned int monitorHeight = (unsigned int)DisplayHeight(self->display, self->screen);
+    XMoveResizeWindow(self->display, event->window, 0, 0, monitorWidth, monitorHeight);
+    XSelectInput(self->display, event->window,
+        EnterWindowMask|
+        FocusChangeMask|
+        StructureNotifyMask
+    );
+    XMapWindow(self->display, event->window);
+    XSetInputFocus(self->display, event->window, RevertToPointerRoot, CurrentTime);
+    puts("mapRequestEnd");
 }
 
 static void EventManager_motionNotify(EventManager* self, XMotionEvent* event) {
