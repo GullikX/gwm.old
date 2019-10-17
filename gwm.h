@@ -1,5 +1,4 @@
 #pragma once
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/Xlib.h>
@@ -11,7 +10,7 @@ typedef struct EventManager EventManager;
 struct EventManager {
     Display* display;
     int screen;
-    bool running;
+    Bool running;
 };
 
 /* Function declarations */

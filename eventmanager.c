@@ -21,7 +21,7 @@ static void EventManager_unmapNotify(EventManager* self, XUnmapEvent* event);
 EventManager* EventManager_new(Display* display) {
     EventManager* self = ecalloc(1, sizeof(*self));
     self->display = display;
-    self->running = true;
+    self->running = True;
     XGrabKey(self->display, XKeysymToKeycode(self->display, XStringToKeysym("XK_Return")), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
