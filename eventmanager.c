@@ -71,61 +71,76 @@ void EventManager_run(EventManager* self) {
 
 /* Private member functions */
 static void EventManager_buttonPress(EventManager* self, XButtonPressedEvent* event) {
+    (void)self; (void)event;
     puts("ButtonPress");
 }
 
 static void EventManager_clientMessage(EventManager* self, XClientMessageEvent* event) {
+    (void)self; (void)event;
     puts("ClientMessage");
 }
 
 static void EventManager_configureNotify(EventManager* self, XConfigureEvent* event) {
+    (void)self; (void)event;
     puts("configureNotify");
 }
 
 static void EventManager_configureRequest(EventManager* self, XConfigureRequestEvent* event) {
+    (void)self; (void)event;
     puts("configureRequest");
 }
 
 static void EventManager_createNotify(EventManager* self, XCreateWindowEvent* event) {
+    (void)self; (void)event;
     puts("createNotify");
 }
 
 static void EventManager_destroyNotify(EventManager* self, XDestroyWindowEvent* event) {
+    (void)self; (void)event;
     puts("destroyNotify");
 }
 
 static void EventManager_enterNotify(EventManager* self, XCrossingEvent* event) {
+    (void)self; (void)event;
     puts("enterNotify");
 }
 
 static void EventManager_expose(EventManager* self, XExposeEvent* event) {
+    (void)self; (void)event;
     puts("expose");
 }
 
 static void EventManager_focusIn(EventManager* self, XFocusChangeEvent* event) {
+    (void)self; (void)event;
     puts("focusIn");
 }
 
 static void EventManager_keyPress(EventManager* self, XKeyEvent* event) {
+    (void)self; (void)event;
     puts("keyPress");
 }
 
 static void EventManager_mappingNotify(EventManager* self, XMappingEvent* event) {
+    (void)self; (void)event;
     puts("mappingNotify");
 }
 
 static void EventManager_mapRequest(EventManager* self, XMapRequestEvent* event) {
+    (void)self; (void)event;
     puts("mapRequest");
 }
 
 static void EventManager_motionNotify(EventManager* self, XMotionEvent* event) {
+    (void)self; (void)event;
     puts("motionNotify");
 }
 
 static void EventManager_propertyNotify(EventManager* self, XPropertyEvent* event) {
+    (void)self; (void)event;
     puts("propertyNotify");
 }
 
 static void EventManager_unmapNotify(EventManager* self, XUnmapEvent* event) {
+    (void)self; (void)event;
     puts("unmapNotify");
 }
