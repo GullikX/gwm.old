@@ -22,7 +22,7 @@ EventManager* EventManager_new(Display* display) {
     EventManager* self = ecalloc(1, sizeof(*self));
     self->display = display;
     self->running = true;
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XStringToKeysym("XK_Return")), Mod4Mask,
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XStringToKeysym("XK_Return")), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
     XSetWindowAttributes wa;

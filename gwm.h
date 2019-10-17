@@ -21,3 +21,6 @@ void EventManager_run(EventManager* self);
 
 /* util.c */
 void* ecalloc(size_t nItems, size_t itemSize);
+
+/* User configuration */
+#include "config.h"
