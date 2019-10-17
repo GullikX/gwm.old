@@ -1,6 +1,13 @@
 #include "gwm.h"
 
 int main() {
-    int* numbers = ecalloc(5, sizeof(*numbers));
-    printf("%zu\n", sizeof(*numbers));
+    Display* display = XOpenDisplay(NULL);
+    if (!display) {
+        fputs("Failed to open display.", stderr);
+        exit(EXIT_FAILURE);
+    }
+    EventManager* eventManager = EventManager_new(display);
+    EventManager_run(eventManager);
+    eventManager = EventManager_free(eventManager);
+    XCloseDisplay(display);
 }
