@@ -22,6 +22,8 @@ EventManager* EventManager_new(Display* display) {
     EventManager* self = ecalloc(1, sizeof(*self));
     self->display = display;
     self->running = True;
+    self->windowManager = WindowManager_new(display);
+
     XGrabKey(self->display, XKeysymToKeycode(self->display, XStringToKeysym("XK_Return")), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
@@ -95,8 +97,9 @@ static void EventManager_createNotify(EventManager* self, XCreateWindowEvent* ev
 }
 
 static void EventManager_destroyNotify(EventManager* self, XDestroyWindowEvent* event) {
-    (void)self; (void)event;
-    puts("destroyNotify");
+    puts("destroyNotify start");
+    WindowManager_unHandleWindow(self->windowManager, event->window);
+    puts("destroyNotify end");
 }
 
 static void EventManager_enterNotify(EventManager* self, XCrossingEvent* event) {
@@ -125,18 +128,9 @@ static void EventManager_mappingNotify(EventManager* self, XMappingEvent* event)
 }
 
 static void EventManager_mapRequest(EventManager* self, XMapRequestEvent* event) {
-    puts("mapRequestStart");
-    unsigned int monitorWidth = (unsigned int)DisplayWidth(self->display, self->screen);
-    unsigned int monitorHeight = (unsigned int)DisplayHeight(self->display, self->screen);
-    XMoveResizeWindow(self->display, event->window, 0, 0, monitorWidth, monitorHeight);
-    XSelectInput(self->display, event->window,
-        EnterWindowMask|
-        FocusChangeMask|
-        StructureNotifyMask
-    );
-    XMapWindow(self->display, event->window);
-    XSetInputFocus(self->display, event->window, RevertToPointerRoot, CurrentTime);
-    puts("mapRequestEnd");
+    puts("mapRequest start");
+    WindowManager_handleWindow(self->windowManager, event->window);
+    puts("mapRequest end");
 }
 
 static void EventManager_motionNotify(EventManager* self, XMotionEvent* event) {
