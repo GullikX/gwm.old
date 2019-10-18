@@ -2,6 +2,7 @@
 
 /* Private function declarations */
 static void WindowManager_printWindowList(WindowManager* self);
+static void WindowManager_tileWindows(WindowManager* self);
 
 /* Constructor */
 WindowManager* WindowManager_new(Display* display) {
@@ -37,6 +38,7 @@ void WindowManager_handleWindow(WindowManager* self, Window window) {
     XMapWindow(self->display, window);
     XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
 
+    WindowManager_tileWindows(self);
     WindowManager_printWindowList(self);
 }
 
@@ -54,6 +56,7 @@ void WindowManager_unHandleWindow(WindowManager* self, Window window) {
             self->windows[iSubsequentWindow] = self->windows[iSubsequentWindow + 1];
         }
     }
+    WindowManager_tileWindows(self);
     WindowManager_printWindowList(self);
 }
 
@@ -64,4 +67,43 @@ static void WindowManager_printWindowList(WindowManager* self) {
         printf("%lu ", self->windows[iWindow]);
     }
     printf("\n");
+}
+
+static void WindowManager_tileWindows(WindowManager* self) {
+    int monitorWidth = (int)DisplayWidth(self->display, self->screen);
+    int monitorHeight = (int)DisplayHeight(self->display, self->screen);
+
+    int masterX1;
+    int masterY1;
+    int masterX2;
+    int masterY2;
+    int stackYSize;
+
+    if (self->nWindows == 1) {
+        masterX1 = 0;
+        masterY1 = 0;
+        masterX2 = monitorWidth;
+        masterY2 = monitorHeight;
+        stackYSize = 0;
+    }
+    else {
+        masterX1 = 0;
+        masterY1 = 0;
+        masterX2 = (int)(monitorWidth * MASTER_FACTOR);
+        masterY2 = monitorHeight;
+        stackYSize = (int)(monitorHeight / (self->nWindows - 1));
+    }
+
+    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+        if (iWindow == 0) {
+            XMoveResizeWindow(self->display, self->windows[iWindow], masterX1, masterY1, masterX2, masterY2);
+        }
+        else {
+            int x1 = masterX2 + 1;
+            int y1 = stackYSize * (iWindow - 1);
+            int x2 = monitorWidth;
+            int y2 = y1 + stackYSize;
+            XMoveResizeWindow(self->display, self->windows[iWindow], x1, y1, x2, y2);
+        }
+    }
 }
