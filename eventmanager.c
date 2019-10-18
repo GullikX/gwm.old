@@ -29,7 +29,6 @@ EventManager* EventManager_new(Display* display) {
     wa.cursor = None;
     wa.event_mask =
         SubstructureRedirectMask|
-        SubstructureNotifyMask|
         ButtonPressMask|
         KeyPressMask|
         StructureNotifyMask|
