@@ -9,7 +9,7 @@ WindowManager* WindowManager_new(Display* display) {
     self->display = display;
     self->screen = DefaultScreen(display);
     self->nWindows = 0;
-    for (unsigned long iWindow = 0; iWindow < 256; iWindow++) {
+    for (unsigned long iWindow = 0; iWindow < MAX_WINDOWS; iWindow++) {
         self->windows[iWindow] = 0;
     }
     return self;

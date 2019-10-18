@@ -7,6 +7,9 @@
 typedef struct EventManager EventManager;
 typedef struct WindowManager WindowManager;
 
+/* User configuration */
+#include "config.h"
+
 /* Type definitions */
 struct EventManager {
     Display* display;
@@ -17,7 +20,7 @@ struct EventManager {
 struct WindowManager {
     Display* display;
     int screen;
-    Window windows[256];
+    Window windows[MAX_WINDOWS];
     unsigned long nWindows;
 };
 
@@ -33,6 +36,3 @@ void WindowManager_unHandleWindow(WindowManager* self, Window window);
 
 /* util.c */
 void* ecalloc(size_t nItems, size_t itemSize);
-
-/* User configuration */
-#include "config.h"
