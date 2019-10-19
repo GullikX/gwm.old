@@ -73,36 +73,20 @@ static void WindowManager_tileWindows(WindowManager* self) {
     int monitorWidth = (int)DisplayWidth(self->display, self->screen);
     int monitorHeight = (int)DisplayHeight(self->display, self->screen);
 
-    int masterX1;
-    int masterY1;
-    int masterX2;
-    int masterY2;
-    int stackYSize;
-
     if (self->nWindows == 1) {
-        masterX1 = 0;
-        masterY1 = 0;
-        masterX2 = monitorWidth;
-        masterY2 = monitorHeight;
-        stackYSize = 0;
+        XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, monitorWidth, monitorHeight);
     }
-    else {
-        masterX1 = 0;
-        masterY1 = 0;
-        masterX2 = (int)(monitorWidth * MASTER_FACTOR);
-        masterY2 = monitorHeight;
-        stackYSize = (int)(monitorHeight / (self->nWindows - 1));
-    }
+    else if (self->nWindows > 1) {
+        int masterWindowWidth = (int)(monitorWidth * MASTER_FACTOR);
+        int stackWindowHeight = (int)(monitorHeight / (self->nWindows - 1));
 
-    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
-        if (iWindow == 0) {
-            XMoveResizeWindow(self->display, self->windows[iWindow], masterX1, masterY1, masterX2, masterY2);
-        }
-        else {
-            int x1 = masterX2 + 1;
-            int y1 = stackYSize * (iWindow - 1);
+        XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, masterWindowWidth, monitorHeight);
+
+        for (unsigned long iWindow = self->nWindows - 2; iWindow < self->nWindows; iWindow--) {
+            int x1 = masterWindowWidth + 1;
+            int y1 = stackWindowHeight * (self->nWindows - (iWindow + 2)) + 1;
             int x2 = monitorWidth;
-            int y2 = y1 + stackYSize;
+            int y2 = stackWindowHeight;
             XMoveResizeWindow(self->display, self->windows[iWindow], x1, y1, x2, y2);
         }
     }
