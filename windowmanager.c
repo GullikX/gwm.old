@@ -42,6 +42,10 @@ void WindowManager_handleWindow(WindowManager* self, Window window) {
     WindowManager_printWindowList(self);
 }
 
+void WindowManager_focusWindow(WindowManager* self, Window window) {
+    XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
+}
+
 void WindowManager_unHandleWindow(WindowManager* self, Window window) {
     unsigned long iWindow;
     for (iWindow = 0; iWindow < self->nWindows; iWindow++) {

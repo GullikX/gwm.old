@@ -32,6 +32,7 @@ void EventManager_run(EventManager* self);
 WindowManager* WindowManager_new(Display* display);
 WindowManager* WindowManager_free(WindowManager* self);
 void WindowManager_handleWindow(WindowManager* self, Window window);
+void WindowManager_focusWindow(WindowManager* self, Window window);
 void WindowManager_unHandleWindow(WindowManager* self, Window window);
 
 /* util.c */

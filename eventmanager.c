@@ -103,8 +103,9 @@ static void EventManager_destroyNotify(EventManager* self, XDestroyWindowEvent* 
 }
 
 static void EventManager_enterNotify(EventManager* self, XCrossingEvent* event) {
-    (void)self; (void)event;
-    puts("enterNotify");
+    puts("enterNotify start");
+    WindowManager_focusWindow(self->windowManager, event->window);
+    puts("enterNotify end");
 }
 
 static void EventManager_expose(EventManager* self, XExposeEvent* event) {
