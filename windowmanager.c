@@ -130,6 +130,17 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         self->running = False;
     }
 
+    if (modState == MODKEY && keySym == XK_Return) {
+        const char *cmd[]  = {"st", NULL};
+        if (fork() == 0) {
+            if (self->display) {
+                close(ConnectionNumber(self->display));
+            }
+            setsid();
+            execvp(((char **)cmd)[0], (char **)cmd);
+        }
+    }
+
     puts("keyPress end");
 }
 

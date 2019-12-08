@@ -33,6 +33,7 @@ void Workspace_handleWindow(Workspace* self, Window window) {
     XSelectInput(self->display, window,
         EnterWindowMask|
         FocusChangeMask|
+        KeyPressMask|
         StructureNotifyMask
     );
     XMapWindow(self->display, window);
