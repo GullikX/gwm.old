@@ -5,3 +5,6 @@ LIBS=-lX11
 
 gwm: $(CFILES)
 	$(CC) $(CFLAGS) -o gwm $(CFILES) $(LIBS)
+
+clean:
+	rm -f gwm
