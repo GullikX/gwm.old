@@ -124,6 +124,12 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     unsigned long keySym = XkbKeycodeToKeysym(self->display, event->keycode, 0, 0);
     unsigned int modState = event->state;
     printf("got keysym %lu, modState %u\n", keySym, modState);
+
+    if (modState == (MODKEY | ShiftMask) && keySym == XK_q) {
+        puts("Exiting...");
+        self->running = False;
+    }
+
     puts("keyPress end");
 }
 
