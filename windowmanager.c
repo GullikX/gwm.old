@@ -24,7 +24,10 @@ WindowManager* WindowManager_new(Display* display) {
     self->running = True;
     self->workspace = Workspace_new(display);
 
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XStringToKeysym("XK_Return")), MODKEY,
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_q), MODKEY | ShiftMask,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
     XSetWindowAttributes wa;
