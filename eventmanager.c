@@ -41,6 +41,7 @@ EventManager* EventManager_new(Display* display) {
 
 /* Destructor */
 EventManager* EventManager_free(EventManager* self) {
+    self->windowManager = WindowManager_free(self->windowManager);
     free(self);
     return NULL;
 }
