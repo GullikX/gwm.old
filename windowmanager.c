@@ -120,8 +120,11 @@ static void WindowManager_focusIn(WindowManager* self, XFocusChangeEvent* event)
 }
 
 static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
-    (void)self; (void)event;
-    puts("keyPress");
+    puts("keyPress start");
+    unsigned long keySym = XKeycodeToKeysym(self->display, event->keycode, 0);
+    unsigned int modState = event->state;
+    printf("got keysym %lu, modState %u\n", keySym, modState);
+    puts("keyPress end");
 }
 
 static void WindowManager_mappingNotify(WindowManager* self, XMappingEvent* event) {
