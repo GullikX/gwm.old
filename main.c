@@ -6,8 +6,8 @@ int main() {
         fputs("Failed to open display.", stderr);
         exit(EXIT_FAILURE);
     }
-    EventManager* eventManager = EventManager_new(display);
-    EventManager_run(eventManager);
-    eventManager = EventManager_free(eventManager);
+    WindowManager* windowManager = WindowManager_new(display);
+    WindowManager_run(windowManager);
+    windowManager = WindowManager_free(windowManager);
     XCloseDisplay(display);
 }

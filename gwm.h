@@ -4,14 +4,14 @@
 #include <X11/Xlib.h>
 
 /* Type declarations */
-typedef struct EventManager EventManager;
+typedef struct WindowManager WindowManager;
 typedef struct Workspace Workspace;
 
 /* User configuration */
 #include "config.h"
 
 /* Type definitions */
-struct EventManager {
+struct WindowManager {
     Display* display;
     Bool running;
     Workspace* workspace;
@@ -25,9 +25,9 @@ struct Workspace {
 };
 
 /* Function declarations */
-EventManager* EventManager_new(Display* display);
-EventManager* EventManager_free(EventManager* self);
-void EventManager_run(EventManager* self);
+WindowManager* WindowManager_new(Display* display);
+WindowManager* WindowManager_free(WindowManager* self);
+void WindowManager_run(WindowManager* self);
 
 Workspace* Workspace_new(Display* display);
 Workspace* Workspace_free(Workspace* self);
