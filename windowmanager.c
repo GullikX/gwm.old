@@ -121,7 +121,7 @@ static void WindowManager_focusIn(WindowManager* self, XFocusChangeEvent* event)
 
 static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     puts("keyPress start");
-    unsigned long keySym = XKeycodeToKeysym(self->display, event->keycode, 0);
+    unsigned long keySym = XkbKeycodeToKeysym(self->display, event->keycode, 0, 0);
     unsigned int modState = event->state;
     printf("got keysym %lu, modState %u\n", keySym, modState);
     puts("keyPress end");

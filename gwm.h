@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/keysym.h>
+#include <X11/XKBlib.h>
 #include <X11/Xlib.h>
 
 /* Type declarations */
