@@ -5,7 +5,7 @@
 
 /* Type declarations */
 typedef struct EventManager EventManager;
-typedef struct WindowManager WindowManager;
+typedef struct Workspace Workspace;
 
 /* User configuration */
 #include "config.h"
@@ -14,10 +14,10 @@ typedef struct WindowManager WindowManager;
 struct EventManager {
     Display* display;
     Bool running;
-    WindowManager* windowManager;
+    Workspace* workspace;
 };
 
-struct WindowManager {
+struct Workspace {
     Display* display;
     int screen;
     Window windows[MAX_WINDOWS];
@@ -29,11 +29,11 @@ EventManager* EventManager_new(Display* display);
 EventManager* EventManager_free(EventManager* self);
 void EventManager_run(EventManager* self);
 
-WindowManager* WindowManager_new(Display* display);
-WindowManager* WindowManager_free(WindowManager* self);
-void WindowManager_handleWindow(WindowManager* self, Window window);
-void WindowManager_focusWindow(WindowManager* self, Window window);
-void WindowManager_unHandleWindow(WindowManager* self, Window window);
+Workspace* Workspace_new(Display* display);
+Workspace* Workspace_free(Workspace* self);
+void Workspace_handleWindow(Workspace* self, Window window);
+void Workspace_focusWindow(Workspace* self, Window window);
+void Workspace_unHandleWindow(Workspace* self, Window window);
 
 /* util.c */
 void* ecalloc(size_t nItems, size_t itemSize);

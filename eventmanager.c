@@ -22,7 +22,7 @@ EventManager* EventManager_new(Display* display) {
     EventManager* self = ecalloc(1, sizeof(*self));
     self->display = display;
     self->running = True;
-    self->windowManager = WindowManager_new(display);
+    self->workspace = Workspace_new(display);
 
     XGrabKey(self->display, XKeysymToKeycode(self->display, XStringToKeysym("XK_Return")), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
@@ -41,7 +41,7 @@ EventManager* EventManager_new(Display* display) {
 
 /* Destructor */
 EventManager* EventManager_free(EventManager* self) {
-    self->windowManager = WindowManager_free(self->windowManager);
+    self->workspace = Workspace_free(self->workspace);
     free(self);
     return NULL;
 }
@@ -99,13 +99,13 @@ static void EventManager_createNotify(EventManager* self, XCreateWindowEvent* ev
 
 static void EventManager_destroyNotify(EventManager* self, XDestroyWindowEvent* event) {
     puts("destroyNotify start");
-    WindowManager_unHandleWindow(self->windowManager, event->window);
+    Workspace_unHandleWindow(self->workspace, event->window);
     puts("destroyNotify end");
 }
 
 static void EventManager_enterNotify(EventManager* self, XCrossingEvent* event) {
     puts("enterNotify start");
-    WindowManager_focusWindow(self->windowManager, event->window);
+    Workspace_focusWindow(self->workspace, event->window);
     puts("enterNotify end");
 }
 
@@ -131,7 +131,7 @@ static void EventManager_mappingNotify(EventManager* self, XMappingEvent* event)
 
 static void EventManager_mapRequest(EventManager* self, XMapRequestEvent* event) {
     puts("mapRequest start");
-    WindowManager_handleWindow(self->windowManager, event->window);
+    Workspace_handleWindow(self->workspace, event->window);
     puts("mapRequest end");
 }
 
