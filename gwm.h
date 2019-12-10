@@ -17,13 +17,14 @@ typedef struct Workspace Workspace;
 struct WindowManager {
     Display* display;
     Bool running;
-    Workspace* workspace;
+    Workspace* workspaces[NUMBER_OF_WORKSPACES];
+    int iWorkspaceActive;
 };
 
 struct Workspace {
     Display* display;
     int screen;
-    Window windows[MAX_WINDOWS];
+    Window windows[MAX_WINDOWS_PER_WORKSPACE];
     unsigned long nWindows;
 };
 
@@ -39,6 +40,7 @@ void Workspace_focusWindow(Workspace* self, Window window);
 void Workspace_hideAllWindows(Workspace* self);
 void Workspace_printWindowList(Workspace* self);
 void Workspace_unHandleWindow(Workspace* self, Window window);
+void Workspace_tileWindows(Workspace* self);
 
 /* util.c */
 void* ecalloc(size_t nItems, size_t itemSize);

@@ -1,15 +1,12 @@
 #include "gwm.h"
 
-/* Private function declarations */
-static void Workspace_tileWindows(Workspace* self);
-
 /* Constructor */
 Workspace* Workspace_new(Display* display) {
     Workspace* self = ecalloc(1, sizeof(*self));
     self->display = display;
     self->screen = DefaultScreen(display);
     self->nWindows = 0;
-    for (unsigned long iWindow = 0; iWindow < MAX_WINDOWS; iWindow++) {
+    for (unsigned long iWindow = 0; iWindow < MAX_WINDOWS_PER_WORKSPACE; iWindow++) {
         self->windows[iWindow] = 0;
     }
     return self;
@@ -79,8 +76,7 @@ void Workspace_unHandleWindow(Workspace* self, Window window) {
     Workspace_printWindowList(self);
 }
 
-/* Private member functions */
-static void Workspace_tileWindows(Workspace* self) {
+void Workspace_tileWindows(Workspace* self) {
     int monitorWidth = (int)DisplayWidth(self->display, self->screen);
     int monitorHeight = (int)DisplayHeight(self->display, self->screen);
 

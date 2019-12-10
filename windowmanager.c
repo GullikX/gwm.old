@@ -22,7 +22,10 @@ WindowManager* WindowManager_new(Display* display) {
     WindowManager* self = ecalloc(1, sizeof(*self));
     self->display = display;
     self->running = True;
-    self->workspace = Workspace_new(display);
+    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+        self->workspaces[iWorkspace] = Workspace_new(display);
+    }
+    self->iWorkspaceActive = 0;
 
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
@@ -34,6 +37,15 @@ WindowManager* WindowManager_new(Display* display) {
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_1), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_2), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_3), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_4), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
     XSetWindowAttributes wa;
@@ -50,7 +62,9 @@ WindowManager* WindowManager_new(Display* display) {
 
 /* Destructor */
 WindowManager* WindowManager_free(WindowManager* self) {
-    self->workspace = Workspace_free(self->workspace);
+    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+        self->workspaces[iWorkspace] = Workspace_free(self->workspaces[iWorkspace]);
+    }
     free(self);
     return NULL;
 }
@@ -78,6 +92,13 @@ void WindowManager_run(WindowManager* self) {
             default: printf("Unknown event type %d\n", event.type);
         }
     }
+}
+
+void WindowManager_switchWorkspace(WindowManager* self, int iWorkspaceNew) {
+    if (iWorkspaceNew == self->iWorkspaceActive) return;
+    Workspace_hideAllWindows(self->workspaces[self->iWorkspaceActive]);
+    Workspace_tileWindows(self->workspaces[iWorkspaceNew]);
+    self->iWorkspaceActive = iWorkspaceNew;
 }
 
 /* Private member functions */
@@ -108,13 +129,13 @@ static void WindowManager_createNotify(WindowManager* self, XCreateWindowEvent* 
 
 static void WindowManager_destroyNotify(WindowManager* self, XDestroyWindowEvent* event) {
     puts("destroyNotify start");
-    Workspace_unHandleWindow(self->workspace, event->window);
+    Workspace_unHandleWindow(self->workspaces[self->iWorkspaceActive], event->window);
     puts("destroyNotify end");
 }
 
 static void WindowManager_enterNotify(WindowManager* self, XCrossingEvent* event) {
     puts("enterNotify start");
-    Workspace_focusWindow(self->workspace, event->window);
+    Workspace_focusWindow(self->workspaces[self->iWorkspaceActive], event->window);
     puts("enterNotify end");
 }
 
@@ -140,11 +161,26 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     }
 
     if (modState == MODKEY && keySym == XK_a) {
-        Workspace_printWindowList(self->workspace);
+        for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+            printf("Workspace %d ", iWorkspace);
+            Workspace_printWindowList(self->workspaces[iWorkspace]);
+        }
     }
 
     if (modState == MODKEY && keySym == XK_1) {
-        Workspace_hideAllWindows(self->workspace);
+        WindowManager_switchWorkspace(self, 0);
+    }
+
+    if (modState == MODKEY && keySym == XK_2) {
+        WindowManager_switchWorkspace(self, 1);
+    }
+
+    if (modState == MODKEY && keySym == XK_3) {
+        WindowManager_switchWorkspace(self, 2);
+    }
+
+    if (modState == MODKEY && keySym == XK_4) {
+        WindowManager_switchWorkspace(self, 3);
     }
 
     if (modState == MODKEY && keySym == XK_Return) {
@@ -168,7 +204,7 @@ static void WindowManager_mappingNotify(WindowManager* self, XMappingEvent* even
 
 static void WindowManager_mapRequest(WindowManager* self, XMapRequestEvent* event) {
     puts("mapRequest start");
-    Workspace_handleWindow(self->workspace, event->window);
+    Workspace_handleWindow(self->workspaces[self->iWorkspaceActive], event->window);
     puts("mapRequest end");
 }
 
