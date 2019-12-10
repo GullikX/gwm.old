@@ -159,31 +159,25 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         puts("Exiting...");
         self->running = False;
     }
-
-    if (modState == MODKEY && keySym == XK_a) {
+    else if (modState == MODKEY && keySym == XK_a) {
         for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
             printf("Workspace %d ", iWorkspace);
             Workspace_printWindowList(self->workspaces[iWorkspace]);
         }
     }
-
-    if (modState == MODKEY && keySym == XK_1) {
+    else if(modState == MODKEY && keySym == XK_1) {
         WindowManager_switchWorkspace(self, 0);
     }
-
-    if (modState == MODKEY && keySym == XK_2) {
+    else if (modState == MODKEY && keySym == XK_2) {
         WindowManager_switchWorkspace(self, 1);
     }
-
-    if (modState == MODKEY && keySym == XK_3) {
+    else if (modState == MODKEY && keySym == XK_3) {
         WindowManager_switchWorkspace(self, 2);
     }
-
-    if (modState == MODKEY && keySym == XK_4) {
+    else if (modState == MODKEY && keySym == XK_4) {
         WindowManager_switchWorkspace(self, 3);
     }
-
-    if (modState == MODKEY && keySym == XK_Return) {
+    else if (modState == MODKEY && keySym == XK_Return) {
         const char *cmd[]  = {"st", NULL};
         if (fork() == 0) {
             if (self->display) {
