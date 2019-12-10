@@ -126,10 +126,10 @@ static void WindowManager_focusIn(WindowManager* self, XFocusChangeEvent* event)
 }
 
 static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
-    puts("keyPress start");
+    //puts("keyPress start");
     unsigned long keySym = XkbKeycodeToKeysym(self->display, event->keycode, 0, 0);
     unsigned int modState = event->state;
-    printf("got keysym %lu, modState %u\n", keySym, modState);
+    //printf("got keysym %lu, modState %u\n", keySym, modState);
 
     if (modState == (MODKEY | ShiftMask) && keySym == XK_q) {
         puts("Exiting...");
@@ -151,7 +151,7 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         }
     }
 
-    puts("keyPress end");
+    //puts("keyPress end");
 }
 
 static void WindowManager_mappingNotify(WindowManager* self, XMappingEvent* event) {
