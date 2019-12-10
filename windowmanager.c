@@ -33,6 +33,9 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_q), MODKEY | ShiftMask,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_1), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XSetWindowAttributes wa;
     wa.cursor = None;
     wa.event_mask =
@@ -138,6 +141,10 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
 
     if (modState == MODKEY && keySym == XK_a) {
         Workspace_printWindowList(self->workspace);
+    }
+
+    if (modState == MODKEY && keySym == XK_1) {
+        Workspace_hideAllWindows(self->workspace);
     }
 
     if (modState == MODKEY && keySym == XK_Return) {

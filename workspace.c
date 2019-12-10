@@ -46,6 +46,13 @@ void Workspace_focusWindow(Workspace* self, Window window) {
     XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
 }
 
+void Workspace_hideAllWindows(Workspace* self) {
+    int monitorWidth = DisplayWidth(self->display, self->screen);
+    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+        XMoveWindow(self->display, self->windows[iWindow], -2*monitorWidth, 0);
+    }
+}
+
 void Workspace_printWindowList(Workspace* self) {  /* DEBUG */
     printf("Window List: ");
     for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
