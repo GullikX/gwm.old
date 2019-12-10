@@ -209,7 +209,11 @@ static void WindowManager_motionNotify(WindowManager* self, XMotionEvent* event)
 
 static void WindowManager_propertyNotify(WindowManager* self, XPropertyEvent* event) {
     if (event->window == DefaultRootWindow(self->display) && event->atom == XA_WM_NAME) {
-        puts("Root window name updated!");
+        XTextProperty xTextProperty;
+        XGetTextProperty(self->display, DefaultRootWindow(self->display), &xTextProperty, event->atom);
+        char rootWindowName[MAX_TASK_NAME_LENGTH];
+		strncpy(rootWindowName, (char *)xTextProperty.value, MAX_TASK_NAME_LENGTH - 1);
+        printf("Root window name updated to '%s'.\n", rootWindowName);
     }
 }
 
