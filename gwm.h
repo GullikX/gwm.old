@@ -36,6 +36,7 @@ Workspace* Workspace_new(Display* display);
 Workspace* Workspace_free(Workspace* self);
 void Workspace_handleWindow(Workspace* self, Window window);
 void Workspace_focusWindow(Workspace* self, Window window);
+void Workspace_printWindowList(Workspace* self);
 void Workspace_unHandleWindow(Workspace* self, Window window);
 
 /* util.c */

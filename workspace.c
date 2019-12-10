@@ -1,7 +1,6 @@
 #include "gwm.h"
 
 /* Private function declarations */
-static void Workspace_printWindowList(Workspace* self);
 static void Workspace_tileWindows(Workspace* self);
 
 /* Constructor */
@@ -47,6 +46,14 @@ void Workspace_focusWindow(Workspace* self, Window window) {
     XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
 }
 
+void Workspace_printWindowList(Workspace* self) {  /* DEBUG */
+    printf("Window List: ");
+    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+        printf("%lu ", self->windows[iWindow]);
+    }
+    printf("\n");
+}
+
 void Workspace_unHandleWindow(Workspace* self, Window window) {
     unsigned long iWindow;
     for (iWindow = 0; iWindow < self->nWindows; iWindow++) {
@@ -66,14 +73,6 @@ void Workspace_unHandleWindow(Workspace* self, Window window) {
 }
 
 /* Private member functions */
-static void Workspace_printWindowList(Workspace* self) {
-    printf("Window List: ");
-    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
-        printf("%lu ", self->windows[iWindow]);
-    }
-    printf("\n");
-}
-
 static void Workspace_tileWindows(Workspace* self) {
     int monitorWidth = (int)DisplayWidth(self->display, self->screen);
     int monitorHeight = (int)DisplayHeight(self->display, self->screen);
