@@ -208,8 +208,9 @@ static void WindowManager_motionNotify(WindowManager* self, XMotionEvent* event)
 }
 
 static void WindowManager_propertyNotify(WindowManager* self, XPropertyEvent* event) {
-    (void)self; (void)event;
-    puts("propertyNotify");
+    if (event->window == DefaultRootWindow(self->display) && event->atom == XA_WM_NAME) {
+        puts("Root window name updated!");
+    }
 }
 
 static void WindowManager_unmapNotify(WindowManager* self, XUnmapEvent* event) {

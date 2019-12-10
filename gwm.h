@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <X11/keysym.h>
+#include <X11/Xatom.h>
 #include <X11/XKBlib.h>
 #include <X11/Xlib.h>
 
