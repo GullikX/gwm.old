@@ -10,6 +10,8 @@
 #include <X11/Xutil.h>
 
 /* Type declarations */
+typedef struct Task Task;
+typedef struct TaskManager TaskManager;
 typedef struct WindowManager WindowManager;
 typedef struct Workspace Workspace;
 
@@ -17,11 +19,23 @@ typedef struct Workspace Workspace;
 #include "config.h"
 
 /* Type definitions */
+struct Task {
+    char name[MAX_TASK_NAME_LENGTH];
+    Workspace* workspaces[NUMBER_OF_WORKSPACES];
+    int iWorkspaceActive;
+    Task* taskNext;
+};
+
+struct TaskManager {
+    Task* taskActive;
+    int nTasks;
+    char taskList[MAX_TASK_NAME_LENGTH * MAX_TASKS];
+};
+
 struct WindowManager {
     Display* display;
     Bool running;
-    Workspace* workspaces[NUMBER_OF_WORKSPACES];
-    int iWorkspaceActive;
+    TaskManager* taskManager;
 };
 
 struct Workspace {
@@ -35,6 +49,20 @@ struct Workspace {
 WindowManager* WindowManager_new(Display* display);
 WindowManager* WindowManager_free(WindowManager* self);
 void WindowManager_run(WindowManager* self);
+
+TaskManager* TaskManager_new(Display* display);
+TaskManager* TaskManager_free(TaskManager* self);
+void Task_focusWindow(Task* self, Window window);
+void Task_handleWindow(Task* self, Window window);
+void Task_switchWorkspace(Task* self, int iWorkspaceNew);
+void Task_unHandleWindow(Task* self, Window window);
+
+Task* Task_new(Display* display, const char* name);
+Task* Task_free(Task* self);
+void TaskManager_focusWindow(TaskManager* self, Window window);
+void TaskManager_handleWindow(TaskManager* self, Window window);
+void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew);
+void TaskManager_unHandleWindow(TaskManager* self, Window window);
 
 Workspace* Workspace_new(Display* display);
 Workspace* Workspace_free(Workspace* self);
