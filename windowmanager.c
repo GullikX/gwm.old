@@ -42,6 +42,9 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_t), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_d), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_a), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
@@ -203,6 +206,10 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     }
     else if (modState == MODKEY && keySym == XK_Return) {
         const char* cmd[]  = {"st", NULL};
+        spawn(self->display, cmd);
+    }
+    else if (modState == MODKEY && keySym == XK_d) {
+        const char* cmd[]  = {"dmenu_run", NULL};
         spawn(self->display, cmd);
     }
     else if (modState == MODKEY && keySym == XK_t) {
