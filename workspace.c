@@ -36,7 +36,6 @@ void Workspace_handleWindow(Workspace* self, Window window) {
     XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
 
     Workspace_tileWindows(self);
-    Workspace_printWindowList(self);
 }
 
 void Workspace_focusWindow(Workspace* self, Window window) {
@@ -58,21 +57,16 @@ void Workspace_printWindowList(Workspace* self) {  /* DEBUG */
 }
 
 void Workspace_unHandleWindow(Workspace* self, Window window) {
-    unsigned long iWindow;
-    for (iWindow = 0; iWindow < self->nWindows; iWindow++) {
+    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) {
             self->windows[iWindow] = 0;
+            self->nWindows--;
+            for (unsigned long iSubsequentWindow = iWindow; iSubsequentWindow < self->nWindows; iSubsequentWindow++) {
+                self->windows[iSubsequentWindow] = self->windows[iSubsequentWindow + 1];
+            }
             break;
         }
     }
-    if (iWindow < self->nWindows) {
-        self->nWindows--;
-        for (unsigned long iSubsequentWindow = iWindow; iSubsequentWindow < self->nWindows; iSubsequentWindow++) {
-            self->windows[iSubsequentWindow] = self->windows[iSubsequentWindow + 1];
-        }
-    }
-    Workspace_tileWindows(self);
-    Workspace_printWindowList(self);
 }
 
 void Workspace_tileWindows(Workspace* self) {

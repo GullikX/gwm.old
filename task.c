@@ -58,5 +58,7 @@ void Task_tileWindows(Task* self) {
 }
 
 void Task_unHandleWindow(Task* self, Window window) {
-    Workspace_unHandleWindow(self->workspaces[self->iWorkspaceActive], window);
+    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+        Workspace_unHandleWindow(self->workspaces[iWorkspace], window);
+    }
 }

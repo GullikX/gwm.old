@@ -84,7 +84,10 @@ void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew) {
 }
 
 void TaskManager_unHandleWindow(TaskManager* self, Window window) {
-    Task_unHandleWindow(self->taskActive, window);
+    for (Task* task = self->taskActive; task; task = task->taskNext) {
+        Task_unHandleWindow(task, window);
+    }
+    Task_tileWindows(self->taskActive);
 }
 
 /* Private member functions */
