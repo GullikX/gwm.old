@@ -51,8 +51,8 @@ WindowManager* WindowManager_new(Display* display);
 WindowManager* WindowManager_free(WindowManager* self);
 void WindowManager_run(WindowManager* self);
 
-TaskManager* TaskManager_new(Display* display);
-TaskManager* TaskManager_free(TaskManager* self);
+Task* Task_new(Display* display, const char* name);
+Task* Task_free(Task* self);
 unsigned long Task_countWindows(Task* self);
 void Task_focusWindow(Task* self, Window window);
 void Task_handleWindow(Task* self, Window window);
@@ -62,8 +62,8 @@ void Task_switchWorkspace(Task* self, int iWorkspaceNew);
 void Task_tileWindows(Task* self);
 void Task_unHandleWindow(Task* self, Window window);
 
-Task* Task_new(Display* display, const char* name);
-Task* Task_free(Task* self);
+TaskManager* TaskManager_new(Display* display);
+TaskManager* TaskManager_free(TaskManager* self);
 void TaskManager_focusWindow(TaskManager* self, Window window);
 void TaskManager_handleWindow(TaskManager* self, Window window);
 void TaskManager_printWindowList(TaskManager* self);
