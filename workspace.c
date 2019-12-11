@@ -103,7 +103,7 @@ void Workspace_tileWindows(Workspace* self) {
         for (unsigned long iWindow = self->nWindows - 2; iWindow < self->nWindows; iWindow--) {
             int x1 = masterWindowWidth + 1;
             int y1 = stackWindowHeight * (self->nWindows - (iWindow + 2)) + 1;
-            int x2 = monitorWidth;
+            int x2 = monitorWidth - x1;
             int y2 = stackWindowHeight;
             XMoveResizeWindow(self->display, self->windows[iWindow], x1, y1, x2, y2);
         }
