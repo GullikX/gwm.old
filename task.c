@@ -19,6 +19,10 @@ Task* Task_free(Task* self) {
 }
 
 /* Member functions */
+void Task_adjustMasterFactor(Task* self, double amount) {
+    Workspace_adjustMasterFactor(self->workspaces[self->iWorkspaceActive], amount);
+}
+
 unsigned long Task_countWindows(Task* self) {
     unsigned long nWindows = 0;
     for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {

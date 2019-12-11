@@ -1,6 +1,8 @@
 #pragma once
 
 #define MASTER_FACTOR 0.6
+#define MASTER_FACTOR_MIN 0.1
+#define MASTER_FACTOR_MAX 0.9
 #define MAX_TASK_NAME_LENGTH 64
 #define MAX_TASKS 64
 #define MAX_WINDOWS_PER_WORKSPACE 256

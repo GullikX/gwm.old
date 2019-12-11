@@ -21,6 +21,10 @@ TaskManager* TaskManager_free(TaskManager* self) {
 }
 
 /* Member functions */
+void TaskManager_adjustMasterFactor(TaskManager* self, double amount) {
+    Task_adjustMasterFactor(self->taskActive, amount);
+}
+
 void TaskManager_focusWindow(TaskManager* self, Window window) {
     Task_focusWindow(self->taskActive, window);
 }

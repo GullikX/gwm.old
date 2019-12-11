@@ -6,6 +6,7 @@ Workspace* Workspace_new(Display* display) {
     self->display = display;
     self->screen = DefaultScreen(display);
     self->nWindows = 0;
+    self->masterFactor = MASTER_FACTOR;
     for (unsigned long iWindow = 0; iWindow < MAX_WINDOWS_PER_WORKSPACE; iWindow++) {
         self->windows[iWindow] = 0;
     }
@@ -19,6 +20,13 @@ Workspace* Workspace_free(Workspace* self) {
 }
 
 /* Member functions */
+void Workspace_adjustMasterFactor(Workspace* self, double amount) {
+    self->masterFactor += amount;
+    if (self->masterFactor > MASTER_FACTOR_MAX) self->masterFactor = MASTER_FACTOR_MAX;
+    if (self->masterFactor < MASTER_FACTOR_MIN) self->masterFactor = MASTER_FACTOR_MIN;
+    Workspace_tileWindows(self);
+}
+
 void Workspace_handleWindow(Workspace* self, Window window) {
     self->windows[self->nWindows] = window;
     self->nWindows++;
@@ -77,7 +85,7 @@ void Workspace_tileWindows(Workspace* self) {
         XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, monitorWidth, monitorHeight);
     }
     else if (self->nWindows > 1) {
-        int masterWindowWidth = (int)(monitorWidth * MASTER_FACTOR);
+        int masterWindowWidth = (int)(monitorWidth * self->masterFactor);
         int stackWindowHeight = (int)(monitorHeight / (self->nWindows - 1));
 
         XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, masterWindowWidth, monitorHeight);

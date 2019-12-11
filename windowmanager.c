@@ -27,6 +27,12 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Right), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Left), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_t), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
@@ -172,6 +178,12 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     else if (modState == MODKEY && keySym == XK_t) {
         const char* cmd[]  = {"gwm-taskswitcher", self->taskManager->taskListString, NULL};
         spawn(self->display, cmd);
+    }
+    else if (modState == (MODKEY | ShiftMask) && keySym == XK_Left) {
+        TaskManager_adjustMasterFactor(self->taskManager, -0.05);
+    }
+    else if (modState == (MODKEY | ShiftMask) && keySym == XK_Right) {
+        TaskManager_adjustMasterFactor(self->taskManager, 0.05);
     }
 
     //puts("keyPress end");
