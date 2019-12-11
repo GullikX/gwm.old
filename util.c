@@ -9,6 +9,10 @@ void* ecalloc(size_t nItems, size_t itemSize) {
     return pointer;
 }
 
+int modulo(int a, int b) {
+    return (a % b + b) % b;
+}
+
 void spawn(Display* display, const char* cmd[]) {
     if (fork() == 0) {
         if (display) {

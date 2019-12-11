@@ -23,6 +23,10 @@ void Task_adjustMasterFactor(Task* self, double amount) {
     Workspace_adjustMasterFactor(self->workspaces[self->iWorkspaceActive], amount);
 }
 
+void Task_changeFocus(Task* self, int iOffset) {
+    Workspace_changeFocus(self->workspaces[self->iWorkspaceActive], iOffset);
+}
+
 unsigned long Task_countWindows(Task* self) {
     unsigned long nWindows = 0;
     for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {

@@ -46,7 +46,17 @@ void Workspace_handleWindow(Workspace* self, Window window) {
     Workspace_tileWindows(self);
 }
 
+void Workspace_changeFocus(Workspace* self, int iOffset) {
+    int iWindow = modulo(self->iWindowFocused + iOffset, self->nWindows);
+    Workspace_focusWindow(self, self->windows[iWindow]);
+}
+
 void Workspace_focusWindow(Workspace* self, Window window) {
+    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+        if (self->windows[iWindow] == window) {
+            self->iWindowFocused = iWindow;
+        }
+    }
     XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
 }
 
