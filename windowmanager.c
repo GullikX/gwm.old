@@ -30,6 +30,9 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_t), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_a), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
@@ -179,6 +182,16 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     }
     else if (modState == MODKEY && keySym == XK_Return) {
         const char *cmd[]  = {"st", NULL};
+        if (fork() == 0) {
+            if (self->display) {
+                close(ConnectionNumber(self->display));
+            }
+            setsid();
+            execvp(((char **)cmd)[0], (char **)cmd);
+        }
+    }
+    else if (modState == MODKEY && keySym == XK_t) {
+        const char *cmd[]  = {"gwm-taskswitcher", "default\nsurf\nmusic", NULL};
         if (fork() == 0) {
             if (self->display) {
                 close(ConnectionNumber(self->display));
