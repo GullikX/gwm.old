@@ -170,7 +170,7 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         spawn(self->display, cmd);
     }
     else if (modState == MODKEY && keySym == XK_t) {
-        const char* cmd[]  = {"gwm-taskswitcher", "default\nsurf\nmusic", NULL};
+        const char* cmd[]  = {"gwm-taskswitcher", self->taskManager->taskListString, NULL};
         spawn(self->display, cmd);
     }
 

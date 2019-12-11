@@ -29,7 +29,7 @@ struct Task {
 struct TaskManager {
     Task* taskActive;
     int nTasks;
-    char taskList[MAX_TASK_NAME_LENGTH * MAX_TASKS];
+    char taskListString[MAX_TASK_NAME_LENGTH * MAX_TASKS];
 };
 
 struct WindowManager {

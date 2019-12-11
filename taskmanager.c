@@ -1,10 +1,14 @@
 #include "gwm.h"
 
+/* Private function declarations */
+static void TaskManager_regenerateTaskListString(TaskManager* self);
+
 /* Constructor */
 TaskManager* TaskManager_new(Display* display) {
     TaskManager* self = ecalloc(1, sizeof(*self));
     self->taskActive = Task_new(display, "default");
     self->nTasks = 1;
+    TaskManager_regenerateTaskListString(self);
     return self;
 }
 
@@ -38,4 +42,18 @@ void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew) {
 
 void TaskManager_unHandleWindow(TaskManager* self, Window window) {
     Task_unHandleWindow(self->taskActive, window);
+}
+
+/* Private member functions */
+static void TaskManager_regenerateTaskListString(TaskManager* self) {
+    int iChar = 0;
+    for (Task* task = self->taskActive; task; task = task->taskNext) {
+        for (unsigned long jChar = 0; jChar < strlen(task->name); jChar++) {
+            self->taskListString[iChar] = task->name[jChar];
+            iChar++;
+        }
+        self->taskListString[iChar] = '\n';
+        iChar++;
+    }
+    self->taskListString[iChar] = '\0';
 }
