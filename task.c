@@ -47,6 +47,16 @@ void Task_hideAllWindows(Task* self) {
     Workspace_hideAllWindows(self->workspaces[self->iWorkspaceActive]);
 }
 
+void Task_moveWindowToWorkspace(Task* self, int iWorkspaceNew) {
+    if (iWorkspaceNew == self->iWorkspaceActive) return;
+    Workspace* workspaceActive = self->workspaces[self->iWorkspaceActive];
+    Window window = workspaceActive->windows[workspaceActive->iWindowFocused];
+    Workspace_unHandleWindow(workspaceActive, window);
+    Workspace_handleWindow(self->workspaces[iWorkspaceNew], window);
+    Workspace_hideAllWindows(self->workspaces[iWorkspaceNew]);
+    Workspace_tileWindows(workspaceActive);
+}
+
 void Task_printWindowList(Task* self) { /* DEBUG */
     for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
         printf("        Workspace %d: ", iWorkspace);

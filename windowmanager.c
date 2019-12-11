@@ -60,6 +60,18 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_4), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_1), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_2), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_3), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_4), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XSetWindowAttributes wa;
     wa.cursor = None;
     wa.event_mask =
@@ -176,6 +188,18 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     }
     else if (modState == MODKEY && keySym == XK_4) {
         TaskManager_switchWorkspace(self->taskManager, 3);
+    }
+    else if(modState == (MODKEY | ShiftMask) && keySym == XK_1) {
+        TaskManager_moveWindowToWorkspace(self->taskManager, 0);
+    }
+    else if (modState == (MODKEY | ShiftMask) && keySym == XK_2) {
+        TaskManager_moveWindowToWorkspace(self->taskManager, 1);
+    }
+    else if (modState == (MODKEY | ShiftMask) && keySym == XK_3) {
+        TaskManager_moveWindowToWorkspace(self->taskManager, 2);
+    }
+    else if (modState == (MODKEY | ShiftMask) && keySym == XK_4) {
+        TaskManager_moveWindowToWorkspace(self->taskManager, 3);
     }
     else if (modState == MODKEY && keySym == XK_Return) {
         const char* cmd[]  = {"st", NULL};

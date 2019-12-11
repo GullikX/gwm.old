@@ -37,6 +37,10 @@ void TaskManager_handleWindow(TaskManager* self, Window window) {
     Task_handleWindow(self->taskActive, window);
 }
 
+void TaskManager_moveWindowToWorkspace(TaskManager* self, int iWorkspaceNew) {
+    Task_moveWindowToWorkspace(self->taskActive, iWorkspaceNew);
+}
+
 void TaskManager_printWindowList(TaskManager* self) { /* DEBUG */
     puts("Window list:");
     for (Task* task = self->taskActive; task; task = task->taskNext) {
