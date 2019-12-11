@@ -46,7 +46,13 @@ void TaskManager_switchTask(TaskManager* self, const char* taskName) {
             Task_hideAllWindows(self->taskActive);
 
             taskPrev->taskNext = task->taskNext;
-            task->taskNext = self->taskActive;
+            if (Task_countWindows(self->taskActive) > 0) {
+                task->taskNext = self->taskActive;
+            }
+            else {
+                task->taskNext = self->taskActive->taskNext;
+                self->taskActive = Task_free(self->taskActive);
+            }
             self->taskActive = task;
 
             Task_tileWindows(self->taskActive);
@@ -60,7 +66,13 @@ void TaskManager_switchTask(TaskManager* self, const char* taskName) {
     Task_hideAllWindows(self->taskActive);
 
     Task* taskNew = Task_new(self->display, taskName);
-    taskNew->taskNext = self->taskActive;
+    if (Task_countWindows(self->taskActive) > 0) {
+        taskNew->taskNext = self->taskActive;
+    }
+    else {
+        taskNew->taskNext = self->taskActive->taskNext;
+        self->taskActive = Task_free(self->taskActive);
+    }
     self->taskActive = taskNew;
 
     Task_tileWindows(self->taskActive);

@@ -53,6 +53,7 @@ void WindowManager_run(WindowManager* self);
 
 TaskManager* TaskManager_new(Display* display);
 TaskManager* TaskManager_free(TaskManager* self);
+unsigned long Task_countWindows(Task* self);
 void Task_focusWindow(Task* self, Window window);
 void Task_handleWindow(Task* self, Window window);
 void Task_hideAllWindows(Task* self);

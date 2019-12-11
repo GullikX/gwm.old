@@ -19,6 +19,14 @@ Task* Task_free(Task* self) {
 }
 
 /* Member functions */
+unsigned long Task_countWindows(Task* self) {
+    unsigned long nWindows = 0;
+    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+        nWindows += self->workspaces[iWorkspace]->nWindows;
+    }
+    return nWindows;
+}
+
 void Task_focusWindow(Task* self, Window window) {
     Workspace_focusWindow(self->workspaces[self->iWorkspaceActive], window);
 }
