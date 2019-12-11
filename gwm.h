@@ -54,6 +54,7 @@ TaskManager* TaskManager_new(Display* display);
 TaskManager* TaskManager_free(TaskManager* self);
 void Task_focusWindow(Task* self, Window window);
 void Task_handleWindow(Task* self, Window window);
+void Task_printWindowList(Task* self);
 void Task_switchWorkspace(Task* self, int iWorkspaceNew);
 void Task_unHandleWindow(Task* self, Window window);
 
@@ -61,6 +62,7 @@ Task* Task_new(Display* display, const char* name);
 Task* Task_free(Task* self);
 void TaskManager_focusWindow(TaskManager* self, Window window);
 void TaskManager_handleWindow(TaskManager* self, Window window);
+void TaskManager_printWindowList(TaskManager* self);
 void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew);
 void TaskManager_unHandleWindow(TaskManager* self, Window window);
 

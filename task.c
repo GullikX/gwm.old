@@ -27,6 +27,13 @@ void Task_handleWindow(Task* self, Window window) {
     Workspace_handleWindow(self->workspaces[self->iWorkspaceActive], window);
 }
 
+void Task_printWindowList(Task* self) { /* DEBUG */
+    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+        printf("        Workspace %d: ", iWorkspace);
+        Workspace_printWindowList(self->workspaces[iWorkspace]);
+    }
+}
+
 void Task_switchWorkspace(Task* self, int iWorkspaceNew) {
     if (iWorkspaceNew == self->iWorkspaceActive) return;
     Workspace_hideAllWindows(self->workspaces[self->iWorkspaceActive]);

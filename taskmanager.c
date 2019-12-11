@@ -24,6 +24,14 @@ void TaskManager_handleWindow(TaskManager* self, Window window) {
     Task_handleWindow(self->taskActive, window);
 }
 
+void TaskManager_printWindowList(TaskManager* self) { /* DEBUG */
+    puts("Window list:");
+    for (Task* task = self->taskActive; task; task = task->taskNext) {
+        printf("    %s\n", task->name);
+        Task_printWindowList(task);
+    }
+}
+
 void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew) {
     Task_switchWorkspace(self->taskActive, iWorkspaceNew);
 }

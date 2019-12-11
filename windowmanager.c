@@ -150,14 +150,9 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         puts("Exiting...");
         self->running = False;
     }
-    /*
     else if (modState == MODKEY && keySym == XK_a) {
-        for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
-            printf("Workspace %d ", iWorkspace);
-            Workspace_printWindowList(self->workspaces[iWorkspace]);
-        }
+        TaskManager_printWindowList(self->taskManager);
     }
-    */
     else if(modState == MODKEY && keySym == XK_1) {
         TaskManager_switchWorkspace(self->taskManager, 0);
     }

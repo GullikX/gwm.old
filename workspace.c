@@ -51,7 +51,6 @@ void Workspace_hideAllWindows(Workspace* self) {
 }
 
 void Workspace_printWindowList(Workspace* self) {  /* DEBUG */
-    printf("Window List: ");
     for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
         printf("%lu ", self->windows[iWindow]);
     }
