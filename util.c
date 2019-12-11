@@ -8,3 +8,13 @@ void* ecalloc(size_t nItems, size_t itemSize) {
     }
     return pointer;
 }
+
+void spawn(Display* display, const char* cmd[]) {
+    if (fork() == 0) {
+        if (display) {
+            close(ConnectionNumber(display));
+        }
+        setsid();
+        execvp(((char **)cmd)[0], (char **)cmd);
+    }
+}

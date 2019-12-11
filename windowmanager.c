@@ -181,24 +181,12 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         WindowManager_switchWorkspace(self, 3);
     }
     else if (modState == MODKEY && keySym == XK_Return) {
-        const char *cmd[]  = {"st", NULL};
-        if (fork() == 0) {
-            if (self->display) {
-                close(ConnectionNumber(self->display));
-            }
-            setsid();
-            execvp(((char **)cmd)[0], (char **)cmd);
-        }
+        const char* cmd[]  = {"st", NULL};
+        spawn(self->display, cmd);
     }
     else if (modState == MODKEY && keySym == XK_t) {
-        const char *cmd[]  = {"gwm-taskswitcher", "default\nsurf\nmusic", NULL};
-        if (fork() == 0) {
-            if (self->display) {
-                close(ConnectionNumber(self->display));
-            }
-            setsid();
-            execvp(((char **)cmd)[0], (char **)cmd);
-        }
+        const char* cmd[]  = {"gwm-taskswitcher", "default\nsurf\nmusic", NULL};
+        spawn(self->display, cmd);
     }
 
     //puts("keyPress end");

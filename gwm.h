@@ -47,3 +47,4 @@ void Workspace_tileWindows(Workspace* self);
 
 /* util.c */
 void* ecalloc(size_t nItems, size_t itemSize);
+void spawn(Display* display, const char* cmd[]);
