@@ -6,6 +6,7 @@ static void TaskManager_regenerateTaskListString(TaskManager* self);
 /* Constructor */
 TaskManager* TaskManager_new(Display* display) {
     TaskManager* self = ecalloc(1, sizeof(*self));
+    self->display = display;
     self->taskActive = Task_new(display, "default");
     self->nTasks = 1;
     TaskManager_regenerateTaskListString(self);
@@ -34,6 +35,36 @@ void TaskManager_printWindowList(TaskManager* self) { /* DEBUG */
         printf("    %s\n", task->name);
         Task_printWindowList(task);
     }
+}
+
+void TaskManager_switchTask(TaskManager* self, const char* taskName) {
+    Task* taskPrev = NULL;
+    for (Task* task = self->taskActive; task; task = task->taskNext) {
+        if (strcmp(task->name, taskName) == 0) {
+            if (task == self->taskActive) return;
+            printf("Changing task to already existing task '%s'...\n", taskName);
+            Task_hideAllWindows(self->taskActive);
+
+            taskPrev->taskNext = task->taskNext;
+            task->taskNext = self->taskActive;
+            self->taskActive = task;
+
+            Task_tileWindows(self->taskActive);
+            TaskManager_regenerateTaskListString(self);
+            return;
+        }
+        taskPrev = task;
+    }
+
+    printf("Creating new task '%s'...\n", taskName);
+    Task_hideAllWindows(self->taskActive);
+
+    Task* taskNew = Task_new(self->display, taskName);
+    taskNew->taskNext = self->taskActive;
+    self->taskActive = taskNew;
+
+    Task_tileWindows(self->taskActive);
+    TaskManager_regenerateTaskListString(self);
 }
 
 void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew) {

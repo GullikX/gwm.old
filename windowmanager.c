@@ -199,7 +199,7 @@ static void WindowManager_propertyNotify(WindowManager* self, XPropertyEvent* ev
         XGetTextProperty(self->display, DefaultRootWindow(self->display), &xTextProperty, event->atom);
         char rootWindowName[MAX_TASK_NAME_LENGTH];
 		strncpy(rootWindowName, (char *)xTextProperty.value, MAX_TASK_NAME_LENGTH - 1);
-        printf("Root window name updated to '%s'.\n", rootWindowName);
+        TaskManager_switchTask(self->taskManager, rootWindowName);
     }
 }
 
