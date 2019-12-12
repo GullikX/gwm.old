@@ -4,8 +4,11 @@ CFILES=main.c task.c taskmanager.c util.c windowmanager.c workspace.c
 LIBS=-lX11
 PREFIX = /usr/local
 
-gwm: $(CFILES)
+gwm: $(CFILES) config.h
 	$(CC) $(CFLAGS) -o gwm $(CFILES) $(LIBS)
+
+config.h:
+	cp config.def.h $@
 
 clean:
 	rm -f gwm
