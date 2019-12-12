@@ -13,11 +13,19 @@ int modulo(int a, int b) {
     return (a % b + b) % b;
 }
 
-void spawn(Display* display, const char* cmd[]) {
+void spawn(const char* cmd[], Display* display, const char* taskName) {
     if (fork() == 0) {
         if (display) {
             close(ConnectionNumber(display));
         }
+
+        for (int iSpecialTaskName = 0; iSpecialTaskName < LENGTH(SPECIAL_TASK_NAMES); iSpecialTaskName++) {
+            if (strcmp(taskName, SPECIAL_TASK_NAMES[iSpecialTaskName]) == 0) {
+                chdir(SPECIAL_TASK_WORKDIRS[iSpecialTaskName]);
+                break;
+            }
+        }
+
         setsid();
         execvp(((char **)cmd)[0], (char **)cmd);
     }

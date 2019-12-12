@@ -8,3 +8,13 @@
 #define MAX_WINDOWS_PER_WORKSPACE 256
 #define NUMBER_OF_WORKSPACES 4
 #define MODKEY Mod1Mask
+
+static const char* SPECIAL_TASK_NAMES[] = {
+    "tmp",
+    "opt"
+};
+
+static const char* SPECIAL_TASK_WORKDIRS[] = {
+    "/tmp",
+    "/opt"
+};

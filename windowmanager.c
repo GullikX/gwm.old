@@ -206,15 +206,15 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     }
     else if (modState == MODKEY && keySym == XK_Return) {
         const char* cmd[]  = {"st", NULL};
-        spawn(self->display, cmd);
+        spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
     else if (modState == MODKEY && keySym == XK_d) {
         const char* cmd[]  = {"dmenu_run", NULL};
-        spawn(self->display, cmd);
+        spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
     else if (modState == MODKEY && keySym == XK_t) {
         const char* cmd[]  = {"gwm-taskswitcher", self->taskManager->taskListString, NULL};
-        spawn(self->display, cmd);
+        spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
     else if (modState == (MODKEY | ShiftMask) && keySym == XK_Left) {
         TaskManager_adjustMasterFactor(self->taskManager, -0.05);

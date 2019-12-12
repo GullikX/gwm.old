@@ -9,6 +9,9 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
+/* Macros */
+#define LENGTH(A) (sizeof(A) / sizeof(A[0]))
+
 /* Type declarations */
 typedef struct Task Task;
 typedef struct TaskManager TaskManager;
@@ -93,4 +96,4 @@ void Workspace_tileWindows(Workspace* self);
 /* util.c */
 void* ecalloc(size_t nItems, size_t itemSize);
 int modulo(int a, int b);
-void spawn(Display* display, const char* cmd[]);
+void spawn(const char* cmd[], Display* display, const char* taskName);
