@@ -27,6 +27,9 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Right), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
@@ -39,16 +42,13 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Left), MODKEY | ShiftMask,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_t), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_d), MODKEY,
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_space), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_a), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_q), MODKEY | ShiftMask,
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Escape), MODKEY | ShiftMask,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_1), MODKEY,
@@ -173,7 +173,7 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     unsigned int modState = event->state;
     //printf("got keysym %lu, modState %u\n", keySym, modState);
 
-    if (modState == (MODKEY | ShiftMask) && keySym == XK_q) {
+    if (modState == (MODKEY | ShiftMask) && keySym == XK_Escape) {
         puts("Exiting...");
         self->running = False;
     }
@@ -208,11 +208,11 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         const char* cmd[]  = {"st", NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
-    else if (modState == MODKEY && keySym == XK_d) {
+    else if (modState == (MODKEY | ShiftMask) && keySym == XK_Return) {
         const char* cmd[]  = {"dmenu_run", NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
-    else if (modState == MODKEY && keySym == XK_t) {
+    else if (modState == MODKEY && keySym == XK_space) {
         const char* cmd[]  = {"gwm-taskswitcher", self->taskManager->taskListString, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
