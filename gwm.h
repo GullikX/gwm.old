@@ -44,7 +44,8 @@ struct WindowManager {
 
 struct Workspace {
     Display* display;
-    int screen;
+    int displayWidth;
+    int displayHeight;
     Window windows[MAX_WINDOWS_PER_WORKSPACE];
     unsigned long nWindows;
     int iWindowFocused;
@@ -69,6 +70,7 @@ void Task_printWindowList(Task* self);
 void Task_switchWorkspace(Task* self, int iWorkspaceNew);
 void Task_tileWindows(Task* self);
 void Task_unHandleWindow(Task* self, Window window);
+void Task_updateScreenResolution(Task* task, int widthNew, int heightNew);
 
 TaskManager* TaskManager_new(Display* display);
 TaskManager* TaskManager_free(TaskManager* self);
@@ -81,6 +83,7 @@ void TaskManager_printWindowList(TaskManager* self);
 void TaskManager_switchTask(TaskManager* self, const char* taskName);
 void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew);
 void TaskManager_unHandleWindow(TaskManager* self, Window window);
+void TaskManager_updateScreenResolution(TaskManager* self, int widthNew, int heightNew);
 
 Workspace* Workspace_new(Display* display);
 Workspace* Workspace_free(Workspace* self);
@@ -92,6 +95,7 @@ void Workspace_hideAllWindows(Workspace* self);
 void Workspace_printWindowList(Workspace* self);
 void Workspace_unHandleWindow(Workspace* self, Window window);
 void Workspace_tileWindows(Workspace* self);
+void Workspace_updateScreenResolution(Workspace* self, int widthNew, int heightNew);
 
 /* util.c */
 void* ecalloc(size_t nItems, size_t itemSize);

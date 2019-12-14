@@ -80,3 +80,9 @@ void Task_unHandleWindow(Task* self, Window window) {
         Workspace_unHandleWindow(self->workspaces[iWorkspace], window);
     }
 }
+
+void Task_updateScreenResolution(Task* self, int widthNew, int heightNew) {
+    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+        Workspace_updateScreenResolution(self->workspaces[iWorkspace], widthNew, heightNew);
+    }
+}

@@ -102,6 +102,13 @@ void TaskManager_unHandleWindow(TaskManager* self, Window window) {
     Task_tileWindows(self->taskActive);
 }
 
+void TaskManager_updateScreenResolution(TaskManager* self, int widthNew, int heightNew) {
+    for (Task* task = self->taskActive; task; task = task->taskNext) {
+        Task_updateScreenResolution(task, widthNew, heightNew);
+    }
+    Task_tileWindows(self->taskActive);
+}
+
 /* Private member functions */
 static void TaskManager_regenerateTaskListString(TaskManager* self) {
     int iChar = 0;

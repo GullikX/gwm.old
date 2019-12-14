@@ -131,8 +131,11 @@ static void WindowManager_clientMessage(WindowManager* self, XClientMessageEvent
 }
 
 static void WindowManager_configureNotify(WindowManager* self, XConfigureEvent* event) {
-    (void)self; (void)event;
-    puts("configureNotify");
+    puts("configureNotify start");
+    if (event->window == DefaultRootWindow(self->display)) {
+        TaskManager_updateScreenResolution(self->taskManager, event->width, event->height);
+    }
+    puts("configureNotify end");
 }
 
 static void WindowManager_configureRequest(WindowManager* self, XConfigureRequestEvent* event) {

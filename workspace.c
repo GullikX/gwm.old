@@ -4,12 +4,13 @@
 Workspace* Workspace_new(Display* display) {
     Workspace* self = ecalloc(1, sizeof(*self));
     self->display = display;
-    self->screen = DefaultScreen(display);
     self->nWindows = 0;
     self->masterFactor = MASTER_FACTOR;
     for (unsigned long iWindow = 0; iWindow < MAX_WINDOWS_PER_WORKSPACE; iWindow++) {
         self->windows[iWindow] = 0;
     }
+    self->displayWidth = DisplayWidth(self->display, DefaultScreen(display));
+    self->displayHeight = DisplayHeight(self->display, DefaultScreen(display));
     return self;
 }
 
@@ -31,9 +32,7 @@ void Workspace_handleWindow(Workspace* self, Window window) {
     self->windows[self->nWindows] = window;
     self->nWindows++;
 
-    unsigned int monitorWidth = (unsigned int)DisplayWidth(self->display, self->screen);
-    unsigned int monitorHeight = (unsigned int)DisplayHeight(self->display, self->screen);
-    XMoveResizeWindow(self->display, window, 0, 0, monitorWidth, monitorHeight);
+    XMoveResizeWindow(self->display, window, 0, 0, self->displayWidth, self->displayHeight);
     XSelectInput(self->display, window,
         EnterWindowMask|
         FocusChangeMask|
@@ -61,9 +60,8 @@ void Workspace_focusWindow(Workspace* self, Window window) {
 }
 
 void Workspace_hideAllWindows(Workspace* self) {
-    int monitorWidth = DisplayWidth(self->display, self->screen);
     for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
-        XMoveWindow(self->display, self->windows[iWindow], -2*monitorWidth, 0);
+        XMoveWindow(self->display, self->windows[iWindow], self->displayWidth * (-2), 0);
     }
 }
 
@@ -88,24 +86,26 @@ void Workspace_unHandleWindow(Workspace* self, Window window) {
 }
 
 void Workspace_tileWindows(Workspace* self) {
-    int monitorWidth = (int)DisplayWidth(self->display, self->screen);
-    int monitorHeight = (int)DisplayHeight(self->display, self->screen);
-
     if (self->nWindows == 1) {
-        XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, monitorWidth, monitorHeight);
+        XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, self->displayWidth, self->displayHeight);
     }
     else if (self->nWindows > 1) {
-        int masterWindowWidth = (int)(monitorWidth * self->masterFactor);
-        int stackWindowHeight = (int)(monitorHeight / (self->nWindows - 1));
+        int masterWindowWidth = self->displayWidth * self->masterFactor;
+        int stackWindowHeight = self->displayHeight / (self->nWindows - 1);
 
-        XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, masterWindowWidth, monitorHeight);
+        XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, masterWindowWidth, self->displayHeight);
 
         for (unsigned long iWindow = self->nWindows - 2; iWindow < self->nWindows; iWindow--) {
             int x1 = masterWindowWidth + 1;
             int y1 = stackWindowHeight * (self->nWindows - (iWindow + 2)) + 1;
-            int x2 = monitorWidth - x1;
+            int x2 = self->displayWidth - x1;
             int y2 = stackWindowHeight;
             XMoveResizeWindow(self->display, self->windows[iWindow], x1, y1, x2, y2);
         }
     }
+}
+
+void Workspace_updateScreenResolution(Workspace* self, int widthNew, int heightNew) {
+    self->displayWidth = widthNew;
+    self->displayHeight = heightNew;
 }
