@@ -4,6 +4,7 @@
 ### Seriously, *another* window manager??
 
 Of course! When using a traditional tiling window manager there is the problem of running out of workspaces and losing track of windows when doing many things at once. Consider your typical UNIX window manager, the workspace layout typically looks something like this:
+
 * Workspace 1
 * Workspace 2
 * Workspace 3
@@ -15,6 +16,7 @@ Of course! When using a traditional tiling window manager there is the problem o
 * ...
 
 Compare this to the workspace layout of gwm:
+
 * Task "just some lazy web surf"
   * Workspace 1
   * Workspace 2
