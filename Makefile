@@ -14,5 +14,5 @@ clean:
 	rm -f gwm
 
 install:
-	@install -Dm 755 gwm "${DESTDIR}${PREFIX}/bin/gwm"
-	@install -Dm 755 gwm-taskswitcher.sh "${DESTDIR}${PREFIX}/bin/gwm-taskswitcher"
+	install -Dm 755 gwm "${DESTDIR}${PREFIX}/bin/gwm"
+	install -Dm 755 gwm-taskswitcher.sh "${DESTDIR}${PREFIX}/bin/gwm-taskswitcher"
