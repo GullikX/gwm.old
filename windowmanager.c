@@ -208,7 +208,7 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         TaskManager_moveWindowToWorkspace(self->taskManager, 3);
     }
     else if (modState == MODKEY && keySym == XK_Return) {
-        const char* cmd[]  = {"st", NULL};
+        const char* cmd[]  = {TERMINAL, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
     else if (modState == (MODKEY | ShiftMask) && keySym == XK_Return) {

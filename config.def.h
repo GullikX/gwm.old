@@ -9,11 +9,14 @@
 #define NUMBER_OF_WORKSPACES 4
 #define MODKEY Mod1Mask
 
+
+static const char* TERMINAL = "st";
+
+
 static const char* SPECIAL_TASK_NAMES[] = {
     "tmp",
     "opt"
 };
-
 static const char* SPECIAL_TASK_WORKDIRS[] = {
     "/tmp",
     "/opt"
