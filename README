@@ -18,20 +18,20 @@ Of course! When using a traditional tiling window manager there is the problem o
 Compare this to the workspace layout of gwm:
 
 * Task "just some lazy web surf"
-  * Workspace 1
-  * Workspace 2
-  * Workspace 3
-  * Workspace 4
+    * Workspace 1
+    * Workspace 2
+    * Workspace 3
+    * Workspace 4
 * Task "super important project"
-  * Workspace 1
-  * Workspace 2
-  * Workspace 3
-  * Workspace 4
+    * Workspace 1
+    * Workspace 2
+    * Workspace 3
+    * Workspace 4
 * Task "update remote web server"
-  * Workspace 1
-  * Workspace 2
-  * Workspace 3
-  * Workspace 4
+    * Workspace 1
+    * Workspace 2
+    * Workspace 3
+    * Workspace 4
 * ...
 
 In gwm, workspaces are grouped by their *task*, and these tasks can be created and destroyed on the fly. When you want to start working on something new, create a new task and you have 4 blank workspaces to use. Leave an empty task and it is automatically destroyed.
