@@ -1,0 +1,92 @@
+# gwm - task-based, tiling window manager
+
+
+### Seriously, *another* window manager??
+
+Of course! When using a traditional tiling window manager there is the problem of running out of workspaces and losing track of windows when doing many things at once. Consider your typical UNIX window manager, the workspace layout typically looks something like this:
+* Workspace 1
+* Workspace 2
+* Workspace 3
+* Workspace 5
+* Workspace 6
+* Workspace 7
+* Workspace 8
+* Workspace 9
+* ...
+
+Compare this to the workspace layout of gwm:
+* Task "just some lazy web surf"
+  * Workspace 1
+  * Workspace 2
+  * Workspace 3
+  * Workspace 4
+* Task "super important project"
+  * Workspace 1
+  * Workspace 2
+  * Workspace 3
+  * Workspace 4
+* Task "update remote web server"
+  * Workspace 1
+  * Workspace 2
+  * Workspace 3
+  * Workspace 4
+* ...
+
+In gwm, workspaces are grouped by their *task*, and these tasks can be created and destroyed on the fly. When you want to start working on something new, create a new task and you have 4 blank workspaces to use. Leave an empty task and it is automatically destroyed.
+
+Switching tasks is done using `dmenu` and `xsetroot`. Press the keybinding (alt+space by default) to fire up the dmenu task switcher. Select an already existing task to switch to it or enter a new name to create a new task. The information is sent to gwm by setting the name of the root window using xsetroot.
+
+The task-based nature of gwm not only simplifies keeping track of windows, but it is also possible to make the window manager behave differently depending on the active task name. Currently there is a feature which automatically sets the work directory of external commands (notably terminal emulators) depending on the task. For example, you may define something like this:
+```
+"gwm" => "/home/username/gitrepos/gwm"
+"music" => "/home/username/data/music"
+```
+
+
+### Keybindings
+
+* `alt+space` launch task switcher
+* `alt+{1, 2, 3, 4}` switch to workspace {1, 2, 3, 4} within the current task
+* `alt+shift+{1, 2, 3, 4}` move window to workspace {1, 2, 3, 4} within the current task
+* `alt+{left, right}` change focused window in current workspace
+* `alt+shift+{left, right}` change size of the master window area
+* `alt+enter` launch a terminal (st by default)
+* `alt+shift+enter` start the dmenu application launcher
+* `alt+shift+escape` close all open windows and exit gwm
+
+
+### Configuration
+
+gwm is configured by editing the file `config.h` and recompiling. There are currently some hard-coded values in the `*.c` files (notably keybindings), but the aim to later move these to `config.h`.
+
+
+### Project state
+
+gwm is in very early development, expect *lots* of problems.
+
+
+### Dependencies
+
+* libx11
+* dmenu
+* xsetroot
+* gcc (compilation)
+* libx11-dev (compilation)
+
+
+### Installation and running
+
+Compile and install:
+
+`make -B && sudo make install`
+
+Edit your ~/.xinitrc to make X start gwm:
+
+```
+exec gwm
+```
+
+
+### Acknowledgments
+
+* gwm is heavily inspired by dwm, written by the Suckless team. Check in out if you haven't: https://dwm.suckless.org
