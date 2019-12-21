@@ -1,11 +1,11 @@
 #include "gwm.h"
 
 /* Constructor */
-Task* Task_new(Display* display, const char* name) {
+Task* Task_new(Display* display, const char* name, int displayWidth, int displayHeight) {
     Task* self = ecalloc(1, sizeof(*self));
     strcpy(self->name, name);
     for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
-        self->workspaces[iWorkspace] = Workspace_new(display);
+        self->workspaces[iWorkspace] = Workspace_new(display, displayWidth, displayHeight);
     }
     self->iWorkspaceActive = 0;
     self->taskNext = NULL;

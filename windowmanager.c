@@ -22,7 +22,9 @@ WindowManager* WindowManager_new(Display* display) {
     WindowManager* self = ecalloc(1, sizeof(*self));
     self->display = display;
     self->running = True;
-    self->taskManager = TaskManager_new(display);
+    self->displayWidth = DisplayWidth(self->display, DefaultScreen(display));
+    self->displayHeight = DisplayHeight(self->display, DefaultScreen(display));
+    self->taskManager = TaskManager_new(display, self->displayWidth, self->displayHeight);
 
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
@@ -133,6 +135,8 @@ static void WindowManager_clientMessage(WindowManager* self, XClientMessageEvent
 static void WindowManager_configureNotify(WindowManager* self, XConfigureEvent* event) {
     puts("configureNotify start");
     if (event->window == DefaultRootWindow(self->display)) {
+        self->displayWidth = event->width;
+        self->displayHeight = event->height;
         TaskManager_updateScreenResolution(self->taskManager, event->width, event->height);
     }
     puts("configureNotify end");
@@ -257,7 +261,7 @@ static void WindowManager_propertyNotify(WindowManager* self, XPropertyEvent* ev
         XGetTextProperty(self->display, DefaultRootWindow(self->display), &xTextProperty, event->atom);
         char rootWindowName[MAX_TASK_NAME_LENGTH];
 		strncpy(rootWindowName, (char *)xTextProperty.value, MAX_TASK_NAME_LENGTH - 1);
-        TaskManager_switchTask(self->taskManager, rootWindowName);
+        TaskManager_switchTask(self->taskManager, rootWindowName, self->displayWidth, self->displayHeight);
     }
 }
 

@@ -38,6 +38,8 @@ struct TaskManager {
 
 struct WindowManager {
     Display* display;
+    int displayWidth;
+    int displayHeight;
     Bool running;
     TaskManager* taskManager;
 };
@@ -57,7 +59,7 @@ WindowManager* WindowManager_new(Display* display);
 WindowManager* WindowManager_free(WindowManager* self);
 void WindowManager_run(WindowManager* self);
 
-Task* Task_new(Display* display, const char* name);
+Task* Task_new(Display* display, const char* name, int displayWidth, int displayHeight);
 Task* Task_free(Task* self);
 void Task_adjustMasterFactor(Task* self, double amount);
 void Task_changeFocus(Task* self, int iOffset);
@@ -72,7 +74,7 @@ void Task_tileWindows(Task* self);
 void Task_unHandleWindow(Task* self, Window window);
 void Task_updateScreenResolution(Task* task, int widthNew, int heightNew);
 
-TaskManager* TaskManager_new(Display* display);
+TaskManager* TaskManager_new(Display* display, int displayWidth, int displayHeight);
 TaskManager* TaskManager_free(TaskManager* self);
 void TaskManager_adjustMasterFactor(TaskManager* self, double amount);
 void TaskManager_changeFocus(TaskManager* self, int iOffset);
@@ -80,12 +82,12 @@ void TaskManager_focusWindow(TaskManager* self, Window window);
 void TaskManager_handleWindow(TaskManager* self, Window window);
 void TaskManager_moveWindowToWorkspace(TaskManager* self, int iWorkspaceNew);
 void TaskManager_printWindowList(TaskManager* self);
-void TaskManager_switchTask(TaskManager* self, const char* taskName);
+void TaskManager_switchTask(TaskManager* self, const char* taskName, int displayWidth, int displayHeight);
 void TaskManager_switchWorkspace(TaskManager* self, int iWorkspaceNew);
 void TaskManager_unHandleWindow(TaskManager* self, Window window);
 void TaskManager_updateScreenResolution(TaskManager* self, int widthNew, int heightNew);
 
-Workspace* Workspace_new(Display* display);
+Workspace* Workspace_new(Display* display, int displayWidth, int displayHeight);
 Workspace* Workspace_free(Workspace* self);
 void Workspace_adjustMasterFactor(Workspace* self, double amount);
 void Workspace_changeFocus(Workspace* self, int iOffset);

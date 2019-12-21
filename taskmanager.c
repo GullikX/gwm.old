@@ -4,10 +4,10 @@
 static void TaskManager_regenerateTaskListString(TaskManager* self);
 
 /* Constructor */
-TaskManager* TaskManager_new(Display* display) {
+TaskManager* TaskManager_new(Display* display, int displayWidth, int displayHeight) {
     TaskManager* self = ecalloc(1, sizeof(*self));
     self->display = display;
-    self->taskActive = Task_new(display, "default");
+    self->taskActive = Task_new(display, "default", displayWidth, displayHeight);
     self->nTasks = 1;
     TaskManager_regenerateTaskListString(self);
     return self;
@@ -49,7 +49,7 @@ void TaskManager_printWindowList(TaskManager* self) { /* DEBUG */
     }
 }
 
-void TaskManager_switchTask(TaskManager* self, const char* taskName) {
+void TaskManager_switchTask(TaskManager* self, const char* taskName, int displayWidth, int displayHeight) {
     Task* taskPrev = NULL;
     for (Task* task = self->taskActive; task; task = task->taskNext) {
         if (strcmp(task->name, taskName) == 0) {
@@ -77,7 +77,7 @@ void TaskManager_switchTask(TaskManager* self, const char* taskName) {
     printf("Creating new task '%s'...\n", taskName);
     Task_hideAllWindows(self->taskActive);
 
-    Task* taskNew = Task_new(self->display, taskName);
+    Task* taskNew = Task_new(self->display, taskName, displayWidth, displayHeight);
     if (Task_countWindows(self->taskActive) > 0) {
         taskNew->taskNext = self->taskActive;
     }

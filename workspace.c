@@ -1,7 +1,7 @@
 #include "gwm.h"
 
 /* Constructor */
-Workspace* Workspace_new(Display* display) {
+Workspace* Workspace_new(Display* display, int displayWidth, int displayHeight) {
     Workspace* self = ecalloc(1, sizeof(*self));
     self->display = display;
     self->nWindows = 0;
@@ -9,8 +9,8 @@ Workspace* Workspace_new(Display* display) {
     for (unsigned long iWindow = 0; iWindow < MAX_WINDOWS_PER_WORKSPACE; iWindow++) {
         self->windows[iWindow] = 0;
     }
-    self->displayWidth = DisplayWidth(self->display, DefaultScreen(display));
-    self->displayHeight = DisplayHeight(self->display, DefaultScreen(display));
+    self->displayWidth = displayWidth;
+    self->displayHeight = displayHeight;
     return self;
 }
 
