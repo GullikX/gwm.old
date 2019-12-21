@@ -29,6 +29,10 @@ void Workspace_adjustMasterFactor(Workspace* self, double amount) {
 }
 
 void Workspace_handleWindow(Workspace* self, Window window) {
+    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+        if (self->windows[iWindow] == window) return;
+    }
+
     self->windows[self->nWindows] = window;
     self->nWindows++;
 
