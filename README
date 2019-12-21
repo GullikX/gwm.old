@@ -2,11 +2,12 @@
 
 Do you usually run out of workspaces or have trouble keeping track of your way-too-many windows? gwm is a new window manager for X which tries to solve these problems by using a task-based structure.
 
-Consider your typical UNIX window manager, the workspace layout usually looks something like this:
+A typical *nix window manager usually has a linear workspace layout like this:
 
 * Workspace 1
 * Workspace 2
 * Workspace 3
+* Workspace 4
 * Workspace 5
 * Workspace 6
 * Workspace 7
@@ -44,7 +45,7 @@ The task-based nature of gwm not only simplifies keeping track of windows, but a
 ```
 
 
-### Keybindings
+### Default keybindings
 
 * `alt+space` launch task switcher
 * `alt+{1, 2, 3, 4}` switch to workspace {1, 2, 3, 4} within the current task
@@ -58,7 +59,7 @@ The task-based nature of gwm not only simplifies keeping track of windows, but a
 
 ### Configuration
 
-gwm is configured by editing the file `config.h` and recompiling. (there are currently some hard-coded values in the `*.c` files (notably the keybindings), but the aim to later move these to `config.h`)
+gwm is configured by editing the file `config.h` and recompiling. (there are currently some hard-coded values in the `*.c` files, notably keybindings, but the aim to later move these to `config.h`)
 
 
 ### Project state
@@ -68,8 +69,8 @@ gwm is in very early development, expect *lots* of problems.
 
 ### Dependencies
 
-* libx11
 * dmenu
+* libx11
 * xsetroot
 * gcc (compilation)
 * libx11-dev (compilation)
