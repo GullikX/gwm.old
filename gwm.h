@@ -103,3 +103,4 @@ void Workspace_updateScreenResolution(Workspace* self, int widthNew, int heightN
 void* ecalloc(size_t nItems, size_t itemSize);
 int modulo(int a, int b);
 void spawn(const char* cmd[], Display* display, const char* taskName);
+int xErrorHandler(Display* display, XErrorEvent* event);

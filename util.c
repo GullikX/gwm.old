@@ -30,3 +30,17 @@ void spawn(const char* cmd[], Display* display, const char* taskName) {
         execvp(((char **)cmd)[0], (char **)cmd);
     }
 }
+
+int xErrorHandler(Display* display, XErrorEvent* event) {
+    int bufferSize = 1024;
+    char errorText[bufferSize];
+    XGetErrorText(display, event->error_code, errorText, bufferSize);
+    fprintf(stderr, "ERROR OCCURED: %s\n", errorText);
+    fprintf(stderr, "    Display: %p\n", (void*)display);
+    fprintf(stderr, "    XID resource id: %lu\n", event->resourceid);
+    fprintf(stderr, "    Serial number of failed request: %lu\n", event->serial);
+    fprintf(stderr, "    Error code of failed request: %u\n", (unsigned int)event->error_code);
+    fprintf(stderr, "    Major op-code of failed request: %u\n", (unsigned int)event->request_code);
+    fprintf(stderr, "    Minor op-code of failed request: %u\n", (unsigned int)event->minor_code);
+    return 0;
+}

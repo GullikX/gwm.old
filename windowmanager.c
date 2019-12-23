@@ -86,6 +86,7 @@ WindowManager* WindowManager_new(Display* display) {
         StructureNotifyMask|
         PropertyChangeMask;
     XChangeWindowAttributes(self->display, DefaultRootWindow(self->display), CWEventMask|CWCursor, &wa);
+    XSetErrorHandler(xErrorHandler);
     return self;
 }
 
