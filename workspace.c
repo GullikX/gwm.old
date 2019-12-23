@@ -44,9 +44,8 @@ void Workspace_handleWindow(Workspace* self, Window window) {
         StructureNotifyMask
     );
     XMapWindow(self->display, window);
-    XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
-
     Workspace_tileWindows(self);
+    Workspace_focusWindow(self, window);
 }
 
 void Workspace_changeFocus(Workspace* self, int iOffset) {
@@ -55,12 +54,12 @@ void Workspace_changeFocus(Workspace* self, int iOffset) {
 }
 
 void Workspace_focusWindow(Workspace* self, Window window) {
+    XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
     for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) {
             self->iWindowFocused = iWindow;
         }
     }
-    XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
 }
 
 void Workspace_hideAllWindows(Workspace* self) {
@@ -83,6 +82,9 @@ void Workspace_unHandleWindow(Workspace* self, Window window) {
             self->nWindows--;
             for (unsigned long iSubsequentWindow = iWindow; iSubsequentWindow < self->nWindows; iSubsequentWindow++) {
                 self->windows[iSubsequentWindow] = self->windows[iSubsequentWindow + 1];
+            }
+            if (self->nWindows > 0) {
+                Workspace_focusWindow(self, self->windows[self->nWindows - 1]);
             }
             break;
         }
