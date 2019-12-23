@@ -24,7 +24,7 @@ typedef struct Workspace Workspace;
 /* Type definitions */
 struct Task {
     char name[MAX_TASK_NAME_LENGTH];
-    Workspace* workspaces[NUMBER_OF_WORKSPACES];
+    Workspace* workspaces[WORKSPACES_PER_TASK];
     int iWorkspaceActive;
     Task* taskNext;
 };

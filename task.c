@@ -4,7 +4,7 @@
 Task* Task_new(Display* display, const char* name, int displayWidth, int displayHeight) {
     Task* self = ecalloc(1, sizeof(*self));
     strcpy(self->name, name);
-    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+    for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
         self->workspaces[iWorkspace] = Workspace_new(display, displayWidth, displayHeight);
     }
     self->iWorkspaceActive = 0;
@@ -29,7 +29,7 @@ void Task_changeFocus(Task* self, int iOffset) {
 
 unsigned long Task_countWindows(Task* self) {
     unsigned long nWindows = 0;
-    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+    for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
         nWindows += self->workspaces[iWorkspace]->nWindows;
     }
     return nWindows;
@@ -58,7 +58,7 @@ void Task_moveWindowToWorkspace(Task* self, int iWorkspaceNew) {
 }
 
 void Task_printWindowList(Task* self) { /* DEBUG */
-    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+    for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
         printf("        Workspace %d: ", iWorkspace);
         Workspace_printWindowList(self->workspaces[iWorkspace]);
     }
@@ -76,13 +76,13 @@ void Task_tileWindows(Task* self) {
 }
 
 void Task_unHandleWindow(Task* self, Window window) {
-    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+    for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
         Workspace_unHandleWindow(self->workspaces[iWorkspace], window);
     }
 }
 
 void Task_updateScreenResolution(Task* self, int widthNew, int heightNew) {
-    for (int iWorkspace = 0; iWorkspace < NUMBER_OF_WORKSPACES; iWorkspace++) {
+    for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
         Workspace_updateScreenResolution(self->workspaces[iWorkspace], widthNew, heightNew);
     }
 }
