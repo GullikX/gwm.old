@@ -161,7 +161,7 @@ static void WindowManager_destroyNotify(WindowManager* self, XDestroyWindowEvent
 
 static void WindowManager_enterNotify(WindowManager* self, XCrossingEvent* event) {
     puts("enterNotify start");
-    TaskManager_focusWindow(self->taskManager, event->window);
+    //TaskManager_focusWindow(self->taskManager, event->window);
     puts("enterNotify end");
 }
 
