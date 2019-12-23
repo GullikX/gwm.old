@@ -171,7 +171,7 @@ static void WindowManager_expose(WindowManager* self, XExposeEvent* event) {
 
 static void WindowManager_focusIn(WindowManager* self, XFocusChangeEvent* event) {
     (void)self; (void)event;
-    puts("focusIn");
+    printf("focusIn, window %lu\n", event->window);
 }
 
 static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
