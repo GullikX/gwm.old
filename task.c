@@ -69,6 +69,8 @@ void Task_switchWorkspace(Task* self, int iWorkspaceNew) {
     Task_hideAllWindows(self);
     self->iWorkspaceActive = iWorkspaceNew;
     Task_tileWindows(self);
+    Workspace* workspaceNew = self->workspaces[iWorkspaceNew];
+    Workspace_focusWindow(workspaceNew, workspaceNew->windows[workspaceNew->iWindowFocused]);
 }
 
 void Task_tileWindows(Task* self) {
