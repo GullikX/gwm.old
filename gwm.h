@@ -89,6 +89,7 @@ void TaskManager_updateScreenResolution(TaskManager* self, int widthNew, int hei
 
 Workspace* Workspace_new(Display* display, int displayWidth, int displayHeight);
 Workspace* Workspace_free(Workspace* self);
+void Workspace_activate(Workspace* self);
 void Workspace_adjustMasterFactor(Workspace* self, double amount);
 void Workspace_changeFocus(Workspace* self, int iOffset);
 void Workspace_handleWindow(Workspace* self, Window window);

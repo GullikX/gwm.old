@@ -66,11 +66,9 @@ void Task_printWindowList(Task* self) { /* DEBUG */
 
 void Task_switchWorkspace(Task* self, int iWorkspaceNew) {
     if (iWorkspaceNew == self->iWorkspaceActive) return;
-    Task_hideAllWindows(self);
+    Workspace_hideAllWindows(self->workspaces[self->iWorkspaceActive]);
+    Workspace_activate(self->workspaces[iWorkspaceNew]);
     self->iWorkspaceActive = iWorkspaceNew;
-    Task_tileWindows(self);
-    Workspace* workspaceNew = self->workspaces[iWorkspaceNew];
-    Workspace_focusWindow(workspaceNew, workspaceNew->windows[workspaceNew->iWindowFocused]);
 }
 
 void Task_tileWindows(Task* self) {

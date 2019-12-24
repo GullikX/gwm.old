@@ -21,6 +21,13 @@ Workspace* Workspace_free(Workspace* self) {
 }
 
 /* Member functions */
+void Workspace_activate(Workspace* self) {
+    Workspace_tileWindows(self);
+    if (self->iWindowFocused < self->nWindows) {
+        Workspace_focusWindow(self, self->windows[self->iWindowFocused]);
+    }
+}
+
 void Workspace_adjustMasterFactor(Workspace* self, double amount) {
     self->masterFactor += amount;
     if (self->masterFactor > MASTER_FACTOR_MAX) self->masterFactor = MASTER_FACTOR_MAX;
