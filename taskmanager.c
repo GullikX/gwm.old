@@ -67,7 +67,7 @@ void TaskManager_switchTask(TaskManager* self, const char* taskName, int display
             }
             self->taskActive = task;
 
-            Task_tileWindows(self->taskActive);
+            Task_activate(self->taskActive);
             TaskManager_regenerateTaskListString(self);
             return;
         }
@@ -87,7 +87,7 @@ void TaskManager_switchTask(TaskManager* self, const char* taskName, int display
     }
     self->taskActive = taskNew;
 
-    Task_tileWindows(self->taskActive);
+    Task_activate(self->taskActive);
     TaskManager_regenerateTaskListString(self);
 }
 

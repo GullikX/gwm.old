@@ -61,6 +61,7 @@ void WindowManager_run(WindowManager* self);
 
 Task* Task_new(Display* display, const char* name, int displayWidth, int displayHeight);
 Task* Task_free(Task* self);
+void Task_activate(Task* self);
 void Task_adjustMasterFactor(Task* self, double amount);
 void Task_changeFocus(Task* self, int iOffset);
 unsigned long Task_countWindows(Task* self);

@@ -19,6 +19,10 @@ Task* Task_free(Task* self) {
 }
 
 /* Member functions */
+void Task_activate(Task* self) {
+    Workspace_activate(self->workspaces[self->iWorkspaceActive]);
+}
+
 void Task_adjustMasterFactor(Task* self, double amount) {
     Workspace_adjustMasterFactor(self->workspaces[self->iWorkspaceActive], amount);
 }
