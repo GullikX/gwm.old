@@ -55,6 +55,7 @@ void TaskManager_switchTask(TaskManager* self, const char* taskName, int display
         if (strcmp(task->name, taskName) == 0) {
             if (task == self->taskActive) return;
             printf("Changing task to already existing task '%s'...\n", taskName);
+            Task_activate(task);
             Task_hideAllWindows(self->taskActive);
 
             taskPrev->taskNext = task->taskNext;
@@ -66,8 +67,6 @@ void TaskManager_switchTask(TaskManager* self, const char* taskName, int display
                 self->taskActive = Task_free(self->taskActive);
             }
             self->taskActive = task;
-
-            Task_activate(self->taskActive);
             TaskManager_regenerateTaskListString(self);
             return;
         }
