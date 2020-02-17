@@ -51,6 +51,10 @@ void Task_hideAllWindows(Task* self) {
     Workspace_hideAllWindows(self->workspaces[self->iWorkspaceActive]);
 }
 
+void Task_makeSelectedWindowMaster(Task* self) {
+    Workspace_makeSelectedWindowMaster(self->workspaces[self->iWorkspaceActive]);
+}
+
 void Task_moveWindowToWorkspace(Task* self, int iWorkspaceNew) {
     if (iWorkspaceNew == self->iWorkspaceActive) return;
     Workspace* workspaceActive = self->workspaces[self->iWorkspaceActive];

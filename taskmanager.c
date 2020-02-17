@@ -37,6 +37,10 @@ void TaskManager_handleWindow(TaskManager* self, Window window) {
     Task_handleWindow(self->taskActive, window);
 }
 
+void TaskManager_makeSelectedWindowMaster(TaskManager* self) {
+    Task_makeSelectedWindowMaster(self->taskActive);
+}
+
 void TaskManager_moveWindowToWorkspace(TaskManager* self, int iWorkspaceNew) {
     Task_moveWindowToWorkspace(self->taskActive, iWorkspaceNew);
 }

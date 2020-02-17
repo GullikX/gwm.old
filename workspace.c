@@ -75,6 +75,12 @@ void Workspace_hideAllWindows(Workspace* self) {
     }
 }
 
+void Workspace_makeSelectedWindowMaster(Workspace* self) {
+    Window window = self->windows[self->iWindowFocused];
+    Workspace_unHandleWindow(self, window);
+    Workspace_handleWindow(self, window);
+}
+
 void Workspace_printWindowList(Workspace* self) {  /* DEBUG */
     for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
         printf("%lu ", self->windows[iWindow]);

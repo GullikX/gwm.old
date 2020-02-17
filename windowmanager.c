@@ -47,6 +47,9 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_space), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Tab), MODKEY,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_a), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
@@ -223,6 +226,9 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     else if (modState == MODKEY && keySym == XK_space) {
         const char* cmd[]  = {"gwm-taskswitcher", self->taskManager->taskListString, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
+    }
+    else if (modState == MODKEY && keySym == XK_Tab) {
+        TaskManager_makeSelectedWindowMaster(self->taskManager);
     }
     else if (modState == (MODKEY | ShiftMask) && keySym == XK_Left) {
         TaskManager_adjustMasterFactor(self->taskManager, -0.05);
