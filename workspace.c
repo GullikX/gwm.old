@@ -76,7 +76,8 @@ void Workspace_hideAllWindows(Workspace* self) {
 }
 
 void Workspace_makeSelectedWindowMaster(Workspace* self) {
-    Window window = self->windows[self->iWindowFocused];
+    if (self->nWindows < 2) return;
+    Window window = (self->iWindowFocused == (self->nWindows - 1)) ? self->windows[self->nWindows - 2] : self->windows[self->iWindowFocused];
     Workspace_unHandleWindow(self, window);
     Workspace_handleWindow(self, window);
 }
