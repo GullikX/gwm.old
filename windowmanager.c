@@ -157,9 +157,7 @@ static void WindowManager_createNotify(WindowManager* self, XCreateWindowEvent* 
 }
 
 static void WindowManager_destroyNotify(WindowManager* self, XDestroyWindowEvent* event) {
-    puts("destroyNotify start");
-    TaskManager_unHandleWindow(self->taskManager, event->window);
-    puts("destroyNotify end");
+    puts("destroyNotify");
 }
 
 static void WindowManager_enterNotify(WindowManager* self, XCrossingEvent* event) {
@@ -274,5 +272,7 @@ static void WindowManager_propertyNotify(WindowManager* self, XPropertyEvent* ev
 
 static void WindowManager_unmapNotify(WindowManager* self, XUnmapEvent* event) {
     (void)self; (void)event;
-    puts("unmapNotify");
+    puts("unmapNotify start");
+    TaskManager_unHandleWindow(self->taskManager, event->window);
+    puts("unmapNotify end");
 }
