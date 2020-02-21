@@ -11,6 +11,8 @@
 
 
 static const char* TERMINAL = "st";
+static const char* LAUNCHER = "dmenu_run";
+static const char* TASK_SWITCHER = "gwm-taskswitcher";
 
 
 static const char* SPECIAL_TASK_NAMES[] = {

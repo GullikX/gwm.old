@@ -218,11 +218,11 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
     else if (modState == (MODKEY | ShiftMask) && keySym == XK_Return) {
-        const char* cmd[]  = {"dmenu_run", NULL};
+        const char* cmd[]  = {LAUNCHER, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
     else if (modState == MODKEY && keySym == XK_space) {
-        const char* cmd[]  = {"gwm-taskswitcher", self->taskManager->taskListString, NULL};
+        const char* cmd[]  = {TASK_SWITCHER, self->taskManager->taskListString, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
     else if (modState == MODKEY && keySym == XK_Tab) {
