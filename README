@@ -22,7 +22,7 @@ Compare this to the workspace layout of gwm:
     * Workspace 2
     * Workspace 3
     * Workspace 4
-* Task "super important project"
+* Task "master thesis"
     * Workspace 1
     * Workspace 2
     * Workspace 3
@@ -53,6 +53,7 @@ The task-based nature of gwm not only simplifies keeping track of windows, but a
 * `alt+{left, right}` change focused window in current workspace
 * `alt+shift+{left, right}` change size of the master window area
 * `alt+tab` move focused window to master area (or move to stack if already there)
+* `alt+F4` close selected window
 * `alt+enter` launch a terminal (st by default)
 * `alt+shift+enter` start the dmenu application launcher
 * `alt+shift+escape` close all open windows and exit gwm
