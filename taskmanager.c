@@ -29,6 +29,10 @@ void TaskManager_changeFocus(TaskManager* self, int iOffset) {
     Task_changeFocus(self->taskActive, iOffset);
 }
 
+void TaskManager_closeSelectedWindow(TaskManager* self) {
+    Task_closeSelectedWindow(self->taskActive);
+}
+
 void TaskManager_focusWindow(TaskManager* self, Window window) {
     Task_focusWindow(self->taskActive, window);
 }

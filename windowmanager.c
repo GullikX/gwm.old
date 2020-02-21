@@ -56,6 +56,9 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Escape), MODKEY | ShiftMask,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_F4), MODKEY | ShiftMask,
+            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_1), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
@@ -239,6 +242,9 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     }
     else if (modState == MODKEY && keySym == XK_Right) {
         TaskManager_changeFocus(self->taskManager, -1);
+    }
+    else if (modState == MODKEY && keySym == XK_F4) {
+        TaskManager_closeSelectedWindow(self->taskManager);
     }
 
     //puts("keyPress end");

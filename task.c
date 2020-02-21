@@ -31,6 +31,10 @@ void Task_changeFocus(Task* self, int iOffset) {
     Workspace_changeFocus(self->workspaces[self->iWorkspaceActive], iOffset);
 }
 
+void Task_closeSelectedWindow(Task* self) {
+    Workspace_closeSelectedWindow(self->workspaces[self->iWorkspaceActive]);
+}
+
 unsigned long Task_countWindows(Task* self) {
     unsigned long nWindows = 0;
     for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {

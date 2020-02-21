@@ -35,6 +35,11 @@ void Workspace_adjustMasterFactor(Workspace* self, double amount) {
     Workspace_tileWindows(self);
 }
 
+void Workspace_closeSelectedWindow(Workspace* self) {
+    if (self->nWindows == 0) return;
+    XKillClient(self->display, self->windows[self->iWindowFocused]);
+}
+
 void Workspace_handleWindow(Workspace* self, Window window) {
     for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) return;
