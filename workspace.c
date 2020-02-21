@@ -35,6 +35,11 @@ void Workspace_adjustMasterFactor(Workspace* self, double amount) {
     Workspace_tileWindows(self);
 }
 
+void Workspace_changeFocus(Workspace* self, int iOffset) {
+    int iWindow = modulo(self->iWindowFocused + iOffset, self->nWindows);
+    Workspace_focusWindow(self, self->windows[iWindow]);
+}
+
 void Workspace_closeSelectedWindow(Workspace* self) {
     if (self->nWindows == 0) return;
     XKillClient(self->display, self->windows[self->iWindowFocused]);
@@ -58,11 +63,6 @@ void Workspace_handleWindow(Workspace* self, Window window) {
     XMapWindow(self->display, window);
     Workspace_tileWindows(self);
     Workspace_focusWindow(self, window);
-}
-
-void Workspace_changeFocus(Workspace* self, int iOffset) {
-    int iWindow = modulo(self->iWindowFocused + iOffset, self->nWindows);
-    Workspace_focusWindow(self, self->windows[iWindow]);
 }
 
 void Workspace_focusWindow(Workspace* self, Window window) {
