@@ -189,7 +189,7 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     else if (modState == MODKEY && keySym == XK_a) {
         TaskManager_printWindowList(self->taskManager);
     }
-    else if(modState == MODKEY && keySym == XK_1) {
+    else if (modState == MODKEY && keySym == XK_1) {
         TaskManager_switchWorkspace(self->taskManager, 0);
     }
     else if (modState == MODKEY && keySym == XK_2) {
@@ -201,7 +201,7 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     else if (modState == MODKEY && keySym == XK_4) {
         TaskManager_switchWorkspace(self->taskManager, 3);
     }
-    else if(modState == (MODKEY | ShiftMask) && keySym == XK_1) {
+    else if (modState == (MODKEY | ShiftMask) && keySym == XK_1) {
         TaskManager_moveWindowToWorkspace(self->taskManager, 0);
     }
     else if (modState == (MODKEY | ShiftMask) && keySym == XK_2) {
@@ -265,7 +265,7 @@ static void WindowManager_propertyNotify(WindowManager* self, XPropertyEvent* ev
         XTextProperty xTextProperty;
         XGetTextProperty(self->display, DefaultRootWindow(self->display), &xTextProperty, event->atom);
         char rootWindowName[MAX_TASK_NAME_LENGTH];
-		strncpy(rootWindowName, (char *)xTextProperty.value, MAX_TASK_NAME_LENGTH - 1);
+		strncpy(rootWindowName, (char*)xTextProperty.value, MAX_TASK_NAME_LENGTH - 1);
         TaskManager_switchTask(self->taskManager, rootWindowName, self->displayWidth, self->displayHeight);
     }
 }
