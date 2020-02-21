@@ -42,7 +42,14 @@ void Workspace_changeFocus(Workspace* self, int iOffset) {
 
 void Workspace_closeSelectedWindow(Workspace* self) {
     if (self->nWindows == 0) return;
-    XKillClient(self->display, self->windows[self->iWindowFocused]);
+    XEvent event;
+    event.xclient.type = ClientMessage;
+    event.xclient.window = self->windows[self->iWindowFocused];
+    event.xclient.message_type = XInternAtom(self->display, "WM_PROTOCOLS", True);
+    event.xclient.format = 32;
+    event.xclient.data.l[0] = XInternAtom(self->display, "WM_DELETE_WINDOW", False);
+    event.xclient.data.l[1] = CurrentTime;
+    XSendEvent(self->display, self->windows[self->iWindowFocused], False, NoEventMask, &event);
 }
 
 void Workspace_handleWindow(Workspace* self, Window window) {
