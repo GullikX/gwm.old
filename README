@@ -53,7 +53,7 @@ The task-based nature of gwm not only simplifies keeping track of windows, but a
 * `super+{left, right}` change focused window in current workspace
 * `super+shift+{left, right}` change size of the master window area
 * `super+tab` move focused window to master area (or move to stack if already there)
-* `super+F4` close selected window
+* `super+F4` close focused window
 * `super+enter` launch a terminal (st by default)
 * `super+shift+enter` start the dmenu application launcher
 * `super+shift+escape` close all open windows and exit gwm
