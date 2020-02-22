@@ -6,7 +6,7 @@ Workspace* Workspace_new(Display* display, int displayWidth, int displayHeight) 
     self->display = display;
     self->nWindows = 0;
     self->masterFactor = MASTER_FACTOR;
-    for (unsigned long iWindow = 0; iWindow < MAX_WINDOWS_PER_WORKSPACE; iWindow++) {
+    for (int iWindow = 0; iWindow < MAX_WINDOWS_PER_WORKSPACE; iWindow++) {
         self->windows[iWindow] = 0;
     }
     self->displayWidth = displayWidth;
@@ -53,7 +53,7 @@ void Workspace_closeSelectedWindow(Workspace* self) {
 }
 
 void Workspace_handleWindow(Workspace* self, Window window) {
-    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+    for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) return;
     }
 
@@ -74,7 +74,7 @@ void Workspace_handleWindow(Workspace* self, Window window) {
 
 void Workspace_focusWindow(Workspace* self, Window window) {
     XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
-    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+    for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) {
             self->iWindowFocused = iWindow;
         }
@@ -82,7 +82,7 @@ void Workspace_focusWindow(Workspace* self, Window window) {
 }
 
 void Workspace_hideAllWindows(Workspace* self) {
-    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+    for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
         XMoveWindow(self->display, self->windows[iWindow], self->displayWidth * (-2), 0);
     }
 }
@@ -95,18 +95,18 @@ void Workspace_makeSelectedWindowMaster(Workspace* self) {
 }
 
 void Workspace_printWindowList(Workspace* self) {  /* DEBUG */
-    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+    for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
         printf("%lu ", self->windows[iWindow]);
     }
     printf("\n");
 }
 
 void Workspace_unHandleWindow(Workspace* self, Window window) {
-    for (unsigned long iWindow = 0; iWindow < self->nWindows; iWindow++) {
+    for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) {
             self->windows[iWindow] = 0;
             self->nWindows--;
-            for (unsigned long iSubsequentWindow = iWindow; iSubsequentWindow < self->nWindows; iSubsequentWindow++) {
+            for (int iSubsequentWindow = iWindow; iSubsequentWindow < self->nWindows; iSubsequentWindow++) {
                 self->windows[iSubsequentWindow] = self->windows[iSubsequentWindow + 1];
             }
             if (self->nWindows > 0) {
@@ -127,7 +127,7 @@ void Workspace_tileWindows(Workspace* self) {
 
         XMoveResizeWindow(self->display, self->windows[self->nWindows - 1], 0, 0, masterWindowWidth, self->displayHeight);
 
-        for (unsigned long iWindow = self->nWindows - 2; iWindow < self->nWindows; iWindow--) {
+        for (int iWindow = self->nWindows - 2; iWindow >= 0; iWindow--) {
             int x1 = masterWindowWidth;
             int y1 = stackWindowHeight * (self->nWindows - (iWindow + 2));
             int x2 = self->displayWidth - x1;

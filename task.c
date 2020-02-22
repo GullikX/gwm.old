@@ -35,8 +35,8 @@ void Task_closeSelectedWindow(Task* self) {
     Workspace_closeSelectedWindow(self->workspaces[self->iWorkspaceActive]);
 }
 
-unsigned long Task_countWindows(Task* self) {
-    unsigned long nWindows = 0;
+int Task_countWindows(Task* self) {
+    int nWindows = 0;
     for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
         nWindows += self->workspaces[iWorkspace]->nWindows;
     }

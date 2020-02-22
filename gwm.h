@@ -10,7 +10,7 @@
 #include <X11/Xutil.h>
 
 /* Macros */
-#define LENGTH(A) (sizeof(A) / sizeof(A[0]))
+#define LENGTH(A) ((int)(sizeof(A) / sizeof(A[0])))
 
 /* Type declarations */
 typedef struct Task Task;
@@ -49,7 +49,7 @@ struct Workspace {
     int displayWidth;
     int displayHeight;
     Window windows[MAX_WINDOWS_PER_WORKSPACE];
-    unsigned long nWindows;
+    int nWindows;
     int iWindowFocused;
     double masterFactor;
 };
@@ -65,7 +65,7 @@ void Task_activate(Task* self);
 void Task_adjustMasterFactor(Task* self, double amount);
 void Task_changeFocus(Task* self, int iOffset);
 void Task_closeSelectedWindow(Task* self);
-unsigned long Task_countWindows(Task* self);
+int Task_countWindows(Task* self);
 void Task_focusWindow(Task* self, Window window);
 void Task_handleWindow(Task* self, Window window);
 void Task_hideAllWindows(Task* self);
