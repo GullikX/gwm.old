@@ -14,6 +14,7 @@ Task* Task_new(Display* display, const char* name, int displayWidth, int display
 
 /* Destructor */
 Task* Task_free(Task* self) {
+    if (self->taskNext) self->taskNext = Task_free(self->taskNext);
     free(self);
     return NULL;
 }
