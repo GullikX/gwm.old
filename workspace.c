@@ -52,6 +52,16 @@ void Workspace_closeSelectedWindow(Workspace* self) {
     XSendEvent(self->display, self->windows[self->iWindowFocused], False, NoEventMask, &event);
 }
 
+void Workspace_focusWindow(Workspace* self, Window window) {
+    XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
+    for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
+        if (self->windows[iWindow] == window) {
+            self->iWindowFocused = iWindow;
+            break;
+        }
+    }
+}
+
 void Workspace_handleWindow(Workspace* self, Window window) {
     for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) return;
@@ -70,16 +80,6 @@ void Workspace_handleWindow(Workspace* self, Window window) {
     XMapWindow(self->display, window);
     Workspace_tileWindows(self);
     Workspace_focusWindow(self, window);
-}
-
-void Workspace_focusWindow(Workspace* self, Window window) {
-    XSetInputFocus(self->display, window, RevertToPointerRoot, CurrentTime);
-    for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
-        if (self->windows[iWindow] == window) {
-            self->iWindowFocused = iWindow;
-            break;
-        }
-    }
 }
 
 void Workspace_hideAllWindows(Workspace* self) {
