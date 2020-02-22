@@ -160,10 +160,12 @@ static void WindowManager_createNotify(WindowManager* self, XCreateWindowEvent* 
 }
 
 static void WindowManager_destroyNotify(WindowManager* self, XDestroyWindowEvent* event) {
+    (void)self; (void)event;
     puts("destroyNotify");
 }
 
 static void WindowManager_enterNotify(WindowManager* self, XCrossingEvent* event) {
+    (void)self; (void)event;
     puts("enterNotify start");
     //TaskManager_focusWindow(self->taskManager, event->window);
     puts("enterNotify end");
