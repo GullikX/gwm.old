@@ -7,7 +7,7 @@
 #define MAX_TASKS 64
 #define MAX_WINDOWS_PER_WORKSPACE 64
 #define WORKSPACES_PER_TASK 4
-#define MODKEY Mod1Mask
+#define MODKEY Mod4Mask
 
 
 static const char* TERMINAL = "st";
