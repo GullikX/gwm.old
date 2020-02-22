@@ -77,6 +77,7 @@ void Workspace_focusWindow(Workspace* self, Window window) {
     for (int iWindow = 0; iWindow < self->nWindows; iWindow++) {
         if (self->windows[iWindow] == window) {
             self->iWindowFocused = iWindow;
+            break;
         }
     }
 }
