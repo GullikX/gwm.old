@@ -72,7 +72,7 @@ void Task_moveWindowToWorkspace(Task* self, int iWorkspaceNew) {
     Workspace_unHandleWindow(workspaceActive, window);
     Workspace_handleWindow(self->workspaces[iWorkspaceNew], window);
     Workspace_hideAllWindows(self->workspaces[iWorkspaceNew]);
-    Workspace_tileWindows(workspaceActive);
+    Workspace_activate(workspaceActive);
 }
 
 void Task_printWindowList(Task* self) { /* DEBUG */
