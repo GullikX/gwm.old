@@ -36,6 +36,7 @@ void Workspace_adjustMasterFactor(Workspace* self, double amount) {
 }
 
 void Workspace_changeFocus(Workspace* self, int iOffset) {
+    if (self->nWindows == 0) return;
     int iWindow = modulo(self->iWindowFocused + iOffset, self->nWindows);
     Workspace_focusWindow(self, self->windows[iWindow]);
 }
