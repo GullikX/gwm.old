@@ -12,9 +12,14 @@ Task* Task_new(Display* display, const char* name, int displayWidth, int display
     return self;
 }
 
-/* Destructor */
+/* Destructors */
 Task* Task_free(Task* self) {
-    if (self->taskNext) self->taskNext = Task_free(self->taskNext);
+    free(self);
+    return NULL;
+}
+
+Task* Task_freeAll(Task* self) {
+    if (self->taskNext) self->taskNext = Task_freeAll(self->taskNext);
     free(self);
     return NULL;
 }

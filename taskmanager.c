@@ -15,7 +15,7 @@ TaskManager* TaskManager_new(Display* display, int displayWidth, int displayHeig
 
 /* Destructor */
 TaskManager* TaskManager_free(TaskManager* self) {
-    self->taskActive = Task_free(self->taskActive);  /* frees all tasks recursively */
+    self->taskActive = Task_freeAll(self->taskActive);  /* frees all tasks recursively */
     free(self);
     return NULL;
 }
