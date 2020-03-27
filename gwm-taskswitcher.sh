@@ -1,3 +1,2 @@
 #!/bin/sh
-task="$(echo "$@" | dmenu)"
-[ -n "$task" ] && xsetroot -name "$task"
+echo -n "$@" | dmenu | xargs -r xsetroot -name
