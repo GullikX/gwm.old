@@ -106,7 +106,7 @@ void TaskManager_unHandleWindow(TaskManager* self, Window window) {
     for (Task* task = self->taskActive; task; task = task->taskNext) {
         Task_unHandleWindow(task, window);
     }
-    Task_tileWindows(self->taskActive);
+    Task_activate(self->taskActive);
 }
 
 void TaskManager_updateScreenResolution(TaskManager* self, int widthNew, int heightNew) {
