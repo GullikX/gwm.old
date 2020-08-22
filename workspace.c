@@ -26,6 +26,9 @@ void Workspace_activate(Workspace* self) {
     if (self->iWindowFocused < self->nWindows) {
         Workspace_focusWindow(self, self->windows[self->iWindowFocused]);
     }
+    else {
+        XSetInputFocus(self->display, DefaultRootWindow(self->display), RevertToPointerRoot, CurrentTime);
+    }
 }
 
 void Workspace_adjustMasterFactor(Workspace* self, double amount) {
