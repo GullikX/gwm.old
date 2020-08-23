@@ -82,7 +82,7 @@ gwm is in very early development, expect *lots* of problems.
 
 Compile and install:
 
-`make -B && sudo make install`
+`make && sudo make install`
 
 Start gwm by specifying it in your ~/.xinitrc:
 
