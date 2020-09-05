@@ -36,7 +36,7 @@ Compare this to the workspace layout of gwm:
 
 In gwm, workspaces are grouped by their *task*, and these tasks can be created and destroyed on the fly. When you want to start working on something new, create a new task and you have 4 blank workspaces to use. Leave an empty task and it is automatically destroyed.
 
-Switching tasks is done using `dmenu` and `xsetroot`. Press the keybinding (`alt+space` by default) to fire up the dmenu task switcher. Select an already existing task to switch to it or enter a new name to create a new task. The information is sent to gwm by setting the name of the root window using xsetroot.
+Switching tasks is done using `dmenu` and `xsetroot`. Press the keybinding (`super+space` by default) to fire up the dmenu task switcher. Select an already existing task to switch to it or enter a new name to create a new task. The information is sent to gwm by setting the name of the root window using xsetroot.
 
 The task-based nature of gwm not only simplifies keeping track of windows, but also makes it possible for the window manager behave differently depending on the active task. Currently there is a feature which automatically sets the work directory of external commands (notably terminal emulators) depending on the current task name. For example, you may define something like this:
 ```
