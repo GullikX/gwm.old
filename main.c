@@ -1,6 +1,7 @@
 #include "gwm.h"
 
 int main() {
+    puts("This is gwm "VERSION);
     Display* display = XOpenDisplay(NULL);
     if (!display) {
         fputs("Failed to open display.", stderr);

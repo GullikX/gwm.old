@@ -12,6 +12,11 @@
 /* Macros */
 #define LENGTH(A) ((int)(sizeof(A) / sizeof(A[0])))
 
+/* Set version string if not set by makefile */
+#ifndef VERSION
+#define VERSION "UNKNOWN_VERSION"
+#endif
+
 /* Type declarations */
 typedef struct Task Task;
 typedef struct TaskManager TaskManager;

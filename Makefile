@@ -4,9 +4,10 @@ CFLAGS=-std=c99 -O2 -pedantic-errors -Wall -Wextra -Wno-unused-variable
 CFILES=main.c task.c taskmanager.c util.c windowmanager.c workspace.c
 LIBS=-lX11
 PREFIX = /usr/local
+VERSION = 0.0.2-git
 
 gwm: $(CFILES) config.h
-	$(CC) $(CFLAGS) -o gwm $(CFILES) $(LIBS)
+	$(CC) -DVERSION=\"${VERSION}\" $(CFLAGS) -o gwm $(CFILES) $(LIBS)
 
 config.h:
 	cp config.def.h $@
