@@ -1,13 +1,16 @@
 #pragma once
 
-#define MASTER_FACTOR 0.6
-#define MASTER_FACTOR_MIN 0.1
-#define MASTER_FACTOR_MAX 0.9
-#define MAX_TASK_NAME_LENGTH 64
-#define MAX_TASKS 64
-#define MAX_WINDOWS_PER_WORKSPACE 64
-#define WORKSPACES_PER_TASK 4
-#define MODKEY Mod4Mask
+enum {
+    MAX_TASK_NAME_LENGTH = 64,
+    MAX_WINDOWS_PER_WORKSPACE = 64,
+    WORKSPACES_PER_TASK = 4,
+    MODKEY = Mod4Mask,
+};
+
+
+const double MASTER_FACTOR = 0.6;
+const double MASTER_FACTOR_MIN = 0.1;
+const double MASTER_FACTOR_MAX = 0.9;
 
 
 static const char* TERMINAL = "st";
