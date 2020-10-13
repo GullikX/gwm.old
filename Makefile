@@ -12,13 +12,16 @@ gwm: $(CFILES) config.h
 config.h:
 	cp config.def.h $@
 
+.PHONY: clean
 clean:
 	rm -f gwm
 
+.PHONY: install
 install:
 	install -Dm 755 gwm "${DESTDIR}${PREFIX}/bin/gwm"
 	install -Dm 755 gwm-taskswitcher.sh "${DESTDIR}${PREFIX}/bin/gwm-taskswitcher"
 
+.PHONY: uninstall
 uninstall:
 	rm -f "${DESTDIR}${PREFIX}/bin/gwm"
 	rm -f "${DESTDIR}${PREFIX}/bin/gwm-taskswitcher"
