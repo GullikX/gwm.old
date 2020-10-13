@@ -3,8 +3,8 @@ CC=gcc
 CFLAGS=-std=c99 -O2 -pedantic-errors -Wall -Wextra -Wno-unused-variable
 CFILES=main.c task.c taskmanager.c util.c windowmanager.c workspace.c
 LIBS=-lX11
-PREFIX = /usr/local
-VERSION = 0.0.3-git
+PREFIX=/usr/local
+VERSION=0.0.3-git
 
 gwm: $(CFILES) config.h
 	$(CC) -DVERSION=\"${VERSION}\" $(CFLAGS) -o gwm $(CFILES) $(LIBS)
