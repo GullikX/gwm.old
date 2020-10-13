@@ -19,7 +19,8 @@ void spawn(const char* cmd[], Display* display, const char* taskName) {
             close(ConnectionNumber(display));
         }
 
-        for (int iSpecialTaskName = 0; iSpecialTaskName < LENGTH(SPECIAL_TASK_NAMES); iSpecialTaskName++) {
+        int nSpecialTaskNames = sizeof(SPECIAL_TASK_NAMES) / sizeof(SPECIAL_TASK_NAMES[0]);
+        for (int iSpecialTaskName = 0; iSpecialTaskName < nSpecialTaskNames; iSpecialTaskName++) {
             if (strcmp(taskName, SPECIAL_TASK_NAMES[iSpecialTaskName]) == 0) {
                 chdir(SPECIAL_TASK_WORKDIRS[iSpecialTaskName]);
                 break;

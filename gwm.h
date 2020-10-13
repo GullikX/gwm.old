@@ -9,9 +9,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-/* Macros */
-#define LENGTH(A) ((int)(sizeof(A) / sizeof(A[0])))
-
 /* Set version string if not set by makefile */
 #ifndef VERSION
 #define VERSION "UNKNOWN_VERSION"
