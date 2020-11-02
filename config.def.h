@@ -10,6 +10,7 @@ enum {
 };
 
 static const double MASTER_FACTOR = 0.6;
+static const double MASTER_FACTOR_ADJUSTMENT_AMOUNT = 0.05;
 static const double MASTER_FACTOR_MIN = 0.1;
 static const double MASTER_FACTOR_MAX = 0.9;
 

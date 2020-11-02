@@ -175,10 +175,10 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
         TaskManager_makeSelectedWindowMaster(self->taskManager);
     }
     else if (modState == keyMods[KEY_MASTER_FACTOR_DEC] && keySym == keys[KEY_MASTER_FACTOR_DEC]) {
-        TaskManager_adjustMasterFactor(self->taskManager, -0.05);
+        TaskManager_adjustMasterFactor(self->taskManager, -MASTER_FACTOR_ADJUSTMENT_AMOUNT);
     }
     else if (modState == keyMods[KEY_MASTER_FACTOR_INC] && keySym == keys[KEY_MASTER_FACTOR_INC]) {
-        TaskManager_adjustMasterFactor(self->taskManager, 0.05);
+        TaskManager_adjustMasterFactor(self->taskManager, MASTER_FACTOR_ADJUSTMENT_AMOUNT);
     }
     else if (modState == keyMods[KEY_WINDOW_FOCUS_INC] && keySym == keys[KEY_WINDOW_FOCUS_INC]) {
         TaskManager_changeFocus(self->taskManager, 1);
