@@ -50,7 +50,7 @@ enum {
     N_KEY_BINDINGS,
 };
 
-static const size_t keys[] = {
+static const size_t keys[N_KEY_BINDINGS] = {
     XK_1,
     XK_2,
     XK_3,
@@ -78,7 +78,7 @@ static const size_t keys[] = {
     XK_a,
 };
 
-static const size_t keyMods[] = {
+static const size_t keyMods[N_KEY_BINDINGS] = {
     MODKEY,
     MODKEY,
     MODKEY,
