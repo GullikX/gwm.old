@@ -1,6 +1,6 @@
 #include "gwm.h"
 
-int main() {
+int main(void) {
     puts("This is gwm "VERSION);
     Display* display = XOpenDisplay(NULL);
     if (!display) {
