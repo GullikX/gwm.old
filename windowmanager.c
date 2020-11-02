@@ -26,62 +26,10 @@ WindowManager* WindowManager_new(Display* display) {
     self->displayHeight = DisplayHeight(self->display, DefaultScreen(display));
     self->taskManager = TaskManager_new(display, self->displayWidth, self->displayHeight);
 
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Return), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Right), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Left), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Right), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Left), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_space), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Tab), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_a), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_F12), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_F4), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_1), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_2), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_3), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_4), MODKEY,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_1), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_2), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_3), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
-
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_4), MODKEY | ShiftMask,
-            DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+    for (int iKey = 0; iKey < N_KEY_BINDINGS; iKey++) {
+        XGrabKey(self->display, XKeysymToKeycode(self->display, keys[iKey]), keyMods[iKey],
+                DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
+    }
 
     XSetWindowAttributes wa;
     wa.cursor = None;
@@ -187,66 +135,66 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     unsigned int modState = event->state;
     //printf("got keysym %lu, modState %u\n", keySym, modState);
 
-    if (modState == (MODKEY | ShiftMask) && keySym == XK_F12) {
-        puts("Exiting...");
-        self->running = False;
-    }
-    else if (modState == MODKEY && keySym == XK_a) {
-        TaskManager_printWindowList(self->taskManager);
-    }
-    else if (modState == MODKEY && keySym == XK_1) {
+    if (modState == keyMods[KEY_SWITCH_TO_WORKSPACE_0] && keySym == keys[KEY_SWITCH_TO_WORKSPACE_0]) {
         TaskManager_switchWorkspace(self->taskManager, 0);
     }
-    else if (modState == MODKEY && keySym == XK_2) {
+    else if (modState == keyMods[KEY_SWITCH_TO_WORKSPACE_1] && keySym == keys[KEY_SWITCH_TO_WORKSPACE_1]) {
         TaskManager_switchWorkspace(self->taskManager, 1);
     }
-    else if (modState == MODKEY && keySym == XK_3) {
+    else if (modState == keyMods[KEY_SWITCH_TO_WORKSPACE_2] && keySym == keys[KEY_SWITCH_TO_WORKSPACE_2]) {
         TaskManager_switchWorkspace(self->taskManager, 2);
     }
-    else if (modState == MODKEY && keySym == XK_4) {
+    else if (modState == keyMods[KEY_SWITCH_TO_WORKSPACE_3] && keySym == keys[KEY_SWITCH_TO_WORKSPACE_3]) {
         TaskManager_switchWorkspace(self->taskManager, 3);
     }
-    else if (modState == (MODKEY | ShiftMask) && keySym == XK_1) {
+    else if (modState == keyMods[KEY_MOVE_WINDOW_TO_WORKSPACE_0] && keySym == keys[KEY_MOVE_WINDOW_TO_WORKSPACE_0]) {
         TaskManager_moveWindowToWorkspace(self->taskManager, 0);
     }
-    else if (modState == (MODKEY | ShiftMask) && keySym == XK_2) {
+    else if (modState == keyMods[KEY_MOVE_WINDOW_TO_WORKSPACE_1] && keySym == keys[KEY_MOVE_WINDOW_TO_WORKSPACE_1]) {
         TaskManager_moveWindowToWorkspace(self->taskManager, 1);
     }
-    else if (modState == (MODKEY | ShiftMask) && keySym == XK_3) {
+    else if (modState == keyMods[KEY_MOVE_WINDOW_TO_WORKSPACE_2] && keySym == keys[KEY_MOVE_WINDOW_TO_WORKSPACE_2]) {
         TaskManager_moveWindowToWorkspace(self->taskManager, 2);
     }
-    else if (modState == (MODKEY | ShiftMask) && keySym == XK_4) {
+    else if (modState == keyMods[KEY_MOVE_WINDOW_TO_WORKSPACE_3] && keySym == keys[KEY_MOVE_WINDOW_TO_WORKSPACE_3]) {
         TaskManager_moveWindowToWorkspace(self->taskManager, 3);
     }
-    else if (modState == MODKEY && keySym == XK_Return) {
+    else if (modState == keyMods[KEY_TERMINAL] && keySym == keys[KEY_TERMINAL]) {
         const char* cmd[]  = {TERMINAL, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
-    else if (modState == (MODKEY | ShiftMask) && keySym == XK_Return) {
+    else if (modState == keyMods[KEY_LAUNCHER] && keySym == keys[KEY_LAUNCHER]) {
         const char* cmd[]  = {LAUNCHER, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
-    else if (modState == MODKEY && keySym == XK_space) {
+    else if (modState == keyMods[KEY_TASK_SWITCHER] && keySym == keys[KEY_TASK_SWITCHER]) {
         const char* cmd[]  = {TASK_SWITCHER, self->taskManager->taskListString, NULL};
         spawn(cmd, self->display, self->taskManager->taskActive->name);
     }
-    else if (modState == MODKEY && keySym == XK_Tab) {
+    else if (modState == keyMods[KEY_MAKE_SELECTED_WINDOW_MASTER] && keySym == keys[KEY_MAKE_SELECTED_WINDOW_MASTER]) {
         TaskManager_makeSelectedWindowMaster(self->taskManager);
     }
-    else if (modState == (MODKEY | ShiftMask) && keySym == XK_Left) {
+    else if (modState == keyMods[KEY_MASTER_FACTOR_DEC] && keySym == keys[KEY_MASTER_FACTOR_DEC]) {
         TaskManager_adjustMasterFactor(self->taskManager, -0.05);
     }
-    else if (modState == (MODKEY | ShiftMask) && keySym == XK_Right) {
+    else if (modState == keyMods[KEY_MASTER_FACTOR_INC] && keySym == keys[KEY_MASTER_FACTOR_INC]) {
         TaskManager_adjustMasterFactor(self->taskManager, 0.05);
     }
-    else if (modState == MODKEY && keySym == XK_Left) {
+    else if (modState == keyMods[KEY_WINDOW_FOCUS_INC] && keySym == keys[KEY_WINDOW_FOCUS_INC]) {
         TaskManager_changeFocus(self->taskManager, 1);
     }
-    else if (modState == MODKEY && keySym == XK_Right) {
+    else if (modState == keyMods[KEY_WINDOW_FOCUS_DEC] && keySym == keys[KEY_WINDOW_FOCUS_DEC]) {
         TaskManager_changeFocus(self->taskManager, -1);
     }
-    else if (modState == MODKEY && keySym == XK_F4) {
+    else if (modState == keyMods[KEY_WINDOW_CLOSE] && keySym == keys[KEY_WINDOW_CLOSE]) {
         TaskManager_closeSelectedWindow(self->taskManager);
+    }
+    else if (modState == keyMods[KEY_PRINT_WINDOW_LIST] && keySym == keys[KEY_PRINT_WINDOW_LIST]) {
+        TaskManager_printWindowList(self->taskManager);
+    }
+    else if (modState == keyMods[KEY_GWM_EXIT] && keySym == keys[KEY_GWM_EXIT]) {
+        puts("Exiting...");
+        self->running = False;
     }
 
     //puts("keyPress end");

@@ -61,7 +61,7 @@ The task-based nature of gwm not only simplifies keeping track of windows, but a
 
 ### Configuration
 
-gwm is configured by editing the file `config.h` and recompiling. (there are currently some hard-coded values in the `*.c` files, notably keybindings, but the aim to later move these to `config.h`)
+gwm is configured by editing the file `config.h` and recompiling.
 
 
 ### Project state
