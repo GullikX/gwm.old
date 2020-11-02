@@ -56,7 +56,7 @@ The task-based nature of gwm not only simplifies keeping track of windows, but a
 * `super+F4` close focused window
 * `super+enter` launch a terminal (st by default)
 * `super+shift+enter` start the dmenu application launcher
-* `super+shift+escape` close all open windows and exit gwm
+* `super+shift+F12` close all open windows and exit gwm
 
 
 ### Configuration

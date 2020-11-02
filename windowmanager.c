@@ -53,7 +53,7 @@ WindowManager* WindowManager_new(Display* display) {
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_a), MODKEY,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
-    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_Escape), MODKEY | ShiftMask,
+    XGrabKey(self->display, XKeysymToKeycode(self->display, XK_F12), MODKEY | ShiftMask,
             DefaultRootWindow(self->display), True, GrabModeAsync, GrabModeAsync);
 
     XGrabKey(self->display, XKeysymToKeycode(self->display, XK_F4), MODKEY | ShiftMask,
@@ -187,7 +187,7 @@ static void WindowManager_keyPress(WindowManager* self, XKeyEvent* event) {
     unsigned int modState = event->state;
     //printf("got keysym %lu, modState %u\n", keySym, modState);
 
-    if (modState == (MODKEY | ShiftMask) && keySym == XK_Escape) {
+    if (modState == (MODKEY | ShiftMask) && keySym == XK_F12) {
         puts("Exiting...");
         self->running = False;
     }
