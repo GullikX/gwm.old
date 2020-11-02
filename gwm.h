@@ -14,6 +14,11 @@
 #define VERSION "UNKNOWN_VERSION"
 #endif
 
+/* Constants */
+enum {
+    XERROR_BUFFER_SIZE = 1024,
+};
+
 /* Type declarations */
 typedef struct Task Task;
 typedef struct TaskManager TaskManager;

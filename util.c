@@ -33,9 +33,8 @@ void spawn(const char* cmd[], Display* display, const char* taskName) {
 }
 
 int xErrorHandler(Display* display, XErrorEvent* event) {
-    int bufferSize = 1024;
-    char errorText[bufferSize];
-    XGetErrorText(display, event->error_code, errorText, bufferSize);
+    char errorText[XERROR_BUFFER_SIZE];
+    XGetErrorText(display, event->error_code, errorText, XERROR_BUFFER_SIZE);
     fprintf(stderr, "ERROR OCCURED: %s\n", errorText);
     fprintf(stderr, "    Display: %p\n", (void*)display);
     fprintf(stderr, "    XID resource id: %lu\n", event->resourceid);
