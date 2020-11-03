@@ -1,4 +1,4 @@
-CC=gcc
+CC=cc
 #CFLAGS=-std=c99 -g -Og -pedantic -Wall -Wextra -Wno-unused-variable -Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
 CFLAGS=-std=c99 -O2 -pedantic -Wall -Wextra -Wno-unused-variable -Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
 CFILES=main.c task.c taskmanager.c util.c windowmanager.c workspace.c
