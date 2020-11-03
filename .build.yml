@@ -2,8 +2,8 @@ image: alpine/latest
 
 packages:
   - gcc
-  - make
   - libx11-dev
+  - make
 
 sources:
   - https://git.sr.ht/~gullik/gwm
