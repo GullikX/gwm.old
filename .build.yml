@@ -2,7 +2,6 @@ image: alpine/latest
 
 packages:
   - gcc
-  - git
   - make
   - libx11-dev
 
