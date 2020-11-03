@@ -1,0 +1,15 @@
+image: alpine/latest
+
+packages:
+  - gcc
+  - git
+  - make
+  - libx11-dev
+
+sources:
+  - https://git.sr.ht/~gullik/gwm
+
+tasks:
+  - build: |
+      cd gwm
+      make
