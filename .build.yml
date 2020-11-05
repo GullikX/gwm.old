@@ -1,3 +1,4 @@
+# Build manifest for sourcehut (https://builds.sr.ht/~gullik/gwm)
 image: alpine/latest
 
 packages:
