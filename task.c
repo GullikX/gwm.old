@@ -67,7 +67,10 @@ void Task_makeSelectedWindowMaster(Task* self) {
 
 void Task_moveWindowToWorkspace(Task* self, int iWorkspaceNew) {
     if (iWorkspaceNew == self->iWorkspaceActive) return;
+
     Workspace* workspaceActive = self->workspaces[self->iWorkspaceActive];
+    if (!workspaceActive->nWindows) return;
+
     Window window = workspaceActive->windows[workspaceActive->iWindowFocused];
     Workspace_unHandleWindow(workspaceActive, window);
     Workspace_handleWindow(self->workspaces[iWorkspaceNew], window);
