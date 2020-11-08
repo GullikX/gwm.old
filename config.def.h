@@ -1,9 +1,5 @@
-#pragma once
-
 /* Config */
 enum {
-    MAX_TASK_NAME_LENGTH = 64,
-    MAX_TASKS = 64,
     MAX_WINDOWS_PER_WORKSPACE = 64,
     WORKSPACES_PER_TASK = 4,
     MODKEY = Mod4Mask,

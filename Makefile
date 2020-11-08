@@ -1,13 +1,12 @@
 CC=cc
 #CFLAGS=-std=c99 -g -Og -pedantic -Wall -Wextra -Wno-unused-variable -Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
 CFLAGS=-std=c99 -O2 -pedantic -Wall -Wextra -Wno-unused-variable -Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
-CFILES=main.c task.c taskmanager.c util.c windowmanager.c workspace.c
 LIBS=-lX11
 PREFIX=/usr/local
 VERSION=0.0.5-git
 
 gwm: $(CFILES) config.h
-	$(CC) -DVERSION=\"${VERSION}\" $(CFLAGS) -o gwm $(CFILES) $(LIBS)
+	$(CC) -DVERSION=\"${VERSION}\" $(CFLAGS) -o gwm gwm.c $(LIBS)
 
 config.h:
 	cp config.def.h $@
