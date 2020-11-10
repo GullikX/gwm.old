@@ -367,6 +367,7 @@ static void workspaceWindowRemove(Window window) {
     }
 
     /* Window not in current workspace, check all other workspaces */
+    Task* taskPrev = NULL;
     for (Task* task = gl.taskActive; task; task = task->taskNext) {
         for (iWorkspace = 0; iWorkspace < N_WORKSPACES_PER_TASK; iWorkspace++) {
             for (int iWindow = 0; iWindow < task->nWindows[iWorkspace]; iWindow++) {
@@ -377,10 +378,15 @@ static void workspaceWindowRemove(Window window) {
                         task->windows[iWorkspace][iSubsequentWindow] = task->windows[iWorkspace][iSubsequentWindow + 1];
                     }
                     gl.taskActive->iWindowFocused[iWorkspace] = gl.taskActive->nWindows[iWorkspace] - 1;
+                    if (taskPrev && task != gl.taskActive) {
+                        taskDestroyIfEmpty(task, taskPrev);
+                        taskListStringRegenerate();
+                    }
                     return;
                 }
             }
         }
+        taskPrev = task;
     }
 }
 
