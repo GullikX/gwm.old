@@ -100,12 +100,12 @@ static const size_t keyMods[N_KEY_BINDINGS] = {
 
 
 /* Task names recognized by gwm */
-static const char* SPECIAL_TASK_NAMES[] = {
+static const char* RECOGNIZED_TASK_NAMES[] = {
     "tmp",
     "opt"
 };
 
-static const char* SPECIAL_TASK_WORKDIRS[] = {
+static const char* RECOGNIZED_TASK_WORKDIRS[] = {
     "/tmp",
     "/opt"
 };
