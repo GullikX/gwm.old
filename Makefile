@@ -30,3 +30,7 @@ install:
 uninstall:
 	rm -f "${DESTDIR}${PREFIX}/bin/gwm"
 	rm -f "${DESTDIR}${PREFIX}/bin/gwm-taskswitcher"
+
+.PHONY: cppcheck
+cppcheck: gwm.c
+	cppcheck --enable=all $<
