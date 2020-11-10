@@ -1,12 +1,18 @@
-CC=cc
-#CFLAGS=-std=c99 -g -Og -pedantic -Wall -Wextra -Wno-unused-variable -Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
-CFLAGS=-std=c99 -O2 -pedantic -Wall -Wextra -Wno-unused-variable -Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
-LIBS=-lX11
-PREFIX=/usr/local
+CC?=cc
+CFLAGS?=-O2
+
 VERSION=0.0.5-git
 
-gwm: $(CFILES) config.h
-	$(CC) -DVERSION=\"${VERSION}\" $(CFLAGS) -o gwm gwm.c $(LIBS)
+WARNINGS=-pedantic -Wall -Wextra -Wno-unused-variable
+ERRORS=-Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
+DEFINES=-DVERSION=\"${VERSION}\"
+OPTS=-std=c99 $(WARNINGS) $(ERRORS) $(DEFINES)
+
+LIBS=-lX11
+PREFIX=/usr/local
+
+gwm: gwm.c config.h
+	$(CC) $(OPTS) -o gwm $< $(LIBS)
 
 config.h:
 	cp config.def.h $@
