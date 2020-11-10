@@ -5,10 +5,10 @@ enum {
     MODKEY = Mod4Mask,
 };
 
-static const float MASTER_FACTOR_DEFAULT = 0.6;
-static const float MASTER_FACTOR_ADJUSTMENT_AMOUNT = 0.05;
-static const float MASTER_FACTOR_MIN = 0.1;
-static const float MASTER_FACTOR_MAX = 0.9;
+static const float MASTER_FACTOR_DEFAULT = 0.6f;
+static const float MASTER_FACTOR_ADJUSTMENT_AMOUNT = 0.05f;
+static const float MASTER_FACTOR_MIN = 0.1f;
+static const float MASTER_FACTOR_MAX = 0.9f;
 
 static const char* const TERMINAL = "st";
 static const char* const LAUNCHER = "dmenu_run";
