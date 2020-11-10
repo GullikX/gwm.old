@@ -2,6 +2,7 @@
 image: alpine/latest
 
 packages:
+  - cppcheck
   - libx11-dev
 
 sources:
@@ -11,3 +12,6 @@ tasks:
   - build: |
       cd gwm
       make
+  - cppcheck: |
+      cd gwm
+      make cppcheck
