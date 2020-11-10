@@ -1,6 +1,6 @@
 /* Config */
 enum {
-    MAX_WINDOWS_PER_WORKSPACE = 64,
+    MAX_WINDOWS_PER_WORKSPACE = 1024,
     N_WORKSPACES_PER_TASK = 4,
     MODKEY = Mod4Mask,
 };
