@@ -3,7 +3,7 @@ CFLAGS?=-O2
 
 VERSION=0.0.5-git
 
-WARNINGS=-pedantic -Wall -Wextra -Wno-unused-variable
+WARNINGS=-pedantic -Wall -Wextra -Wunused-const-variable
 ERRORS=-Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
 DEFINES=-DVERSION=\"${VERSION}\"
 OPTS=-std=c99 $(WARNINGS) $(ERRORS) $(DEFINES)
