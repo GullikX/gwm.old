@@ -115,10 +115,10 @@ static void spawn(const char* cmd[]) {
             close(ConnectionNumber(gl.display));
         }
 
-        int nRECOGNIZEDTaskNames = sizeof(RECOGNIZED_TASK_NAMES) / sizeof(RECOGNIZED_TASK_NAMES[0]);
-        for (int iRECOGNIZEDTaskName = 0; iRECOGNIZEDTaskName < nRECOGNIZEDTaskNames; iRECOGNIZEDTaskName++) {
-            if (!strcmp(gl.taskActive->name, RECOGNIZED_TASK_NAMES[iRECOGNIZEDTaskName])) {
-                chdir(RECOGNIZED_TASK_WORKDIRS[iRECOGNIZEDTaskName]);
+        int nRecognizedTaskNames = sizeof(RECOGNIZED_TASK_NAMES) / sizeof(RECOGNIZED_TASK_NAMES[0]);
+        for (int iRecognizedTaskName = 0; iRecognizedTaskName < nRecognizedTaskNames; iRecognizedTaskName++) {
+            if (!strcmp(gl.taskActive->name, RECOGNIZED_TASK_NAMES[iRecognizedTaskName])) {
+                chdir(RECOGNIZED_TASK_WORKDIRS[iRecognizedTaskName]);
                 break;
             }
         }
