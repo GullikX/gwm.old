@@ -10,6 +10,8 @@ static const float MASTER_FACTOR_ADJUSTMENT_AMOUNT = 0.05f;
 static const float MASTER_FACTOR_MIN = 0.1f;
 static const float MASTER_FACTOR_MAX = 0.9f;
 
+static const char* const TASK_NAME_DEFAULT = "default";
+
 static const char* const TERMINAL = "st";
 static const char* const LAUNCHER = "dmenu_run";
 static const char* const TASK_SWITCHER = "gwm-taskswitcher";

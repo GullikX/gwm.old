@@ -527,7 +527,7 @@ int main(void) {
 
     XSetErrorHandler(xErrorHandler);
 
-    gl.taskActive = taskCreate("default");
+    gl.taskActive = taskCreate(TASK_NAME_DEFAULT);
     taskListStringRegenerate();
 
     gl.running = true;
