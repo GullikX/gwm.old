@@ -1,2 +1,2 @@
 #!/bin/sh
-echo -n "$@" | dmenu | xargs -r xsetroot -name
+echo -n "$@" | dmenu | tr '\n' '\0' | xargs -0 -r xsetroot -name
