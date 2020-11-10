@@ -1,3 +1,4 @@
+#include <signal.h>
 #include <stdarg.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -479,6 +480,8 @@ static void xEventUnmapNotify(XUnmapEvent* event) {
 
 int main(void) {
     puts("This is gwm "VERSION);
+
+    signal(SIGCHLD, SIG_IGN);
     memset(&gl, 0, sizeof(gl));
 
     gl.display = XOpenDisplay(NULL);
