@@ -31,7 +31,7 @@ static void taskListStringRegenerate(void);
 static void taskSwitch(const char* const name);
 static void workspaceFocusChange(int offset);
 static void workspaceHide(int iWorkspace);
-static void workspaceMasterFactorAdjust(double amount);
+static void workspaceMasterFactorAdjust(float amount);
 static void workspaceShow(int iWorkspace);
 static void workspaceSwitch(int iWorkspaceNew);
 static void workspaceWindowAdd(Window window, int iWorkspace);
@@ -54,11 +54,11 @@ static void xEventUnmapNotify(XUnmapEvent* event);
 /* Type definitions */
 struct Task {
     char* name;
-    Window windows[WORKSPACES_PER_TASK][MAX_WINDOWS_PER_WORKSPACE];
+    Window windows[N_WORKSPACES_PER_TASK][MAX_WINDOWS_PER_WORKSPACE];
     int iWorkspaceActive;
-    int nWindows[WORKSPACES_PER_TASK];
-    int iWindowFocused[WORKSPACES_PER_TASK];
-    double masterFactor[WORKSPACES_PER_TASK];
+    int nWindows[N_WORKSPACES_PER_TASK];
+    int iWindowFocused[N_WORKSPACES_PER_TASK];
+    float masterFactor[N_WORKSPACES_PER_TASK];
     Task* taskNext;
 };
 
@@ -119,8 +119,8 @@ static Task* taskCreate(const char* const name) {
     task->name = ecalloc(nameLength + 1, sizeof(char));
     strcpy(task->name, name);
 
-    for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
-        task->masterFactor[iWorkspace] = MASTER_FACTOR;
+    for (int iWorkspace = 0; iWorkspace < N_WORKSPACES_PER_TASK; iWorkspace++) {
+        task->masterFactor[iWorkspace] = MASTER_FACTOR_DEFAULT;
     }
 
     return task;
@@ -128,7 +128,7 @@ static Task* taskCreate(const char* const name) {
 
 
 static void taskDestroyIfEmpty(Task* task, Task* taskPrev) {
-    for (int iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
+    for (int iWorkspace = 0; iWorkspace < N_WORKSPACES_PER_TASK; iWorkspace++) {
         if (task->nWindows[iWorkspace]) return;
     }
 
@@ -210,7 +210,7 @@ static void workspaceHide(int iWorkspace) {
 }
 
 
-static void workspaceMasterFactorAdjust(double amount) {
+static void workspaceMasterFactorAdjust(float amount) {
     int iWorkspace = gl.taskActive->iWorkspaceActive;
     gl.taskActive->masterFactor[iWorkspace] += amount;
     if (gl.taskActive->masterFactor[iWorkspace] > MASTER_FACTOR_MAX) gl.taskActive->masterFactor[iWorkspace] = MASTER_FACTOR_MAX;
@@ -351,7 +351,7 @@ static void workspaceWindowRemove(Window window) {
 
     /* Window not in current workspace, check all other workspaces */
     for (Task* task = gl.taskActive; task; task = task->taskNext) {
-        for (iWorkspace = 0; iWorkspace < WORKSPACES_PER_TASK; iWorkspace++) {
+        for (iWorkspace = 0; iWorkspace < N_WORKSPACES_PER_TASK; iWorkspace++) {
             for (int iWindow = 0; iWindow < task->nWindows[iWorkspace]; iWindow++) {
                 if (task->windows[iWorkspace][iWindow] == window) {
                     task->windows[iWorkspace][iWindow] = 0;

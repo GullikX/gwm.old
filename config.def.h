@@ -1,18 +1,18 @@
 /* Config */
 enum {
     MAX_WINDOWS_PER_WORKSPACE = 64,
-    WORKSPACES_PER_TASK = 4,
+    N_WORKSPACES_PER_TASK = 4,
     MODKEY = Mod4Mask,
 };
 
-static const double MASTER_FACTOR = 0.6;
-static const double MASTER_FACTOR_ADJUSTMENT_AMOUNT = 0.05;
-static const double MASTER_FACTOR_MIN = 0.1;
-static const double MASTER_FACTOR_MAX = 0.9;
+static const float MASTER_FACTOR_DEFAULT = 0.6;
+static const float MASTER_FACTOR_ADJUSTMENT_AMOUNT = 0.05;
+static const float MASTER_FACTOR_MIN = 0.1;
+static const float MASTER_FACTOR_MAX = 0.9;
 
-static const char* TERMINAL = "st";
-static const char* LAUNCHER = "dmenu_run";
-static const char* TASK_SWITCHER = "gwm-taskswitcher";
+static const char* const TERMINAL = "st";
+static const char* const LAUNCHER = "dmenu_run";
+static const char* const TASK_SWITCHER = "gwm-taskswitcher";
 
 
 /* Keybindings */
@@ -41,8 +41,6 @@ enum {
 
     KEY_GWM_EXIT,
 
-    KEY_PRINT_WINDOW_LIST,  /* Debug */
-
     N_KEY_BINDINGS,
 };
 
@@ -70,8 +68,6 @@ static const size_t keys[N_KEY_BINDINGS] = {
     XK_F4,
 
     XK_F12,
-
-    XK_a,
 };
 
 static const size_t keyMods[N_KEY_BINDINGS] = {
@@ -98,8 +94,6 @@ static const size_t keyMods[N_KEY_BINDINGS] = {
     MODKEY,
 
     MODKEY | ShiftMask,
-
-    MODKEY,
 };
 
 
