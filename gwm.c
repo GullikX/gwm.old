@@ -352,6 +352,8 @@ static void workspaceWindowMove(int iWorkspaceNew) {
 
 static void workspaceWindowRemove(Window window) {
     int iWorkspace = gl.taskActive->iWorkspaceActive;
+    int iWindowFocused = gl.taskActive->iWindowFocused[gl.taskActive->iWorkspaceActive];
+    Window windowFocused = gl.taskActive->windows[iWorkspace][iWindowFocused];
 
     for (int iWindow = 0; iWindow < gl.taskActive->nWindows[iWorkspace]; iWindow++) {
         if (gl.taskActive->windows[iWorkspace][iWindow] == window) {
@@ -360,7 +362,20 @@ static void workspaceWindowRemove(Window window) {
             for (int iSubsequentWindow = iWindow; iSubsequentWindow < gl.taskActive->nWindows[iWorkspace]; iSubsequentWindow++) {
                 gl.taskActive->windows[iWorkspace][iSubsequentWindow] = gl.taskActive->windows[iWorkspace][iSubsequentWindow + 1];
             }
-            gl.taskActive->iWindowFocused[iWorkspace] = gl.taskActive->nWindows[iWorkspace] - 1;
+
+            if (window == windowFocused) {
+                gl.taskActive->iWindowFocused[iWorkspace] = gl.taskActive->nWindows[iWorkspace] - 1;
+            }
+            else {
+                for (int iWindowFocusedNew = 0; iWindowFocusedNew < gl.taskActive->nWindows[iWorkspace]; iWindowFocusedNew++) {
+                    if (gl.taskActive->windows[iWorkspace][iWindowFocusedNew] == windowFocused) {
+                        gl.taskActive->iWindowFocused[iWorkspace] = iWindowFocusedNew;
+                        break;
+                    }
+
+                }
+            }
+
             workspaceShow(iWorkspace);
             return;
         }
