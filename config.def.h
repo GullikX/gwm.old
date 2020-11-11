@@ -20,12 +20,12 @@ static const char* const TASK_SWITCHER = "gwm-taskswitcher";
 /* Task names recognized by gwm */
 static const char* RECOGNIZED_TASK_NAMES[] = {
     "tmp",
-    "opt"
+    "opt",
 };
 
 static const char* RECOGNIZED_TASK_WORKDIRS[] = {
     "/tmp",
-    "/opt"
+    "/opt",
 };
 
 
