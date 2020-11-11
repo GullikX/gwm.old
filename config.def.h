@@ -17,6 +17,18 @@ static const char* const LAUNCHER = "dmenu_run";
 static const char* const TASK_SWITCHER = "gwm-taskswitcher";
 
 
+/* Task names recognized by gwm */
+static const char* RECOGNIZED_TASK_NAMES[] = {
+    "tmp",
+    "opt"
+};
+
+static const char* RECOGNIZED_TASK_WORKDIRS[] = {
+    "/tmp",
+    "/opt"
+};
+
+
 /* Keybindings */
 enum {
     KEY_SWITCH_TO_WORKSPACE_0,
@@ -96,16 +108,4 @@ static const size_t keyMods[N_KEY_BINDINGS] = {
     MODKEY,
 
     MODKEY | ShiftMask,
-};
-
-
-/* Task names recognized by gwm */
-static const char* RECOGNIZED_TASK_NAMES[] = {
-    "tmp",
-    "opt"
-};
-
-static const char* RECOGNIZED_TASK_WORKDIRS[] = {
-    "/tmp",
-    "/opt"
 };
