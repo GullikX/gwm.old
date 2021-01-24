@@ -12,7 +12,7 @@ LIBS=-lX11
 PREFIX=/usr/local
 
 gwm: gwm.c config.h
-	$(CC) $(OPTS) -o gwm $< $(LIBS)
+	$(CC) $(CFLAGS) $(OPTS) -o gwm $< $(LIBS)
 
 config.h:
 	cp config.def.h $@
