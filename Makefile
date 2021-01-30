@@ -1,7 +1,7 @@
 CC?=cc
 CFLAGS?=-O2
 
-VERSION=0.1.1-git
+VERSION=0.1.2
 
 WARNINGS=-pedantic -Wall -Wextra -Wunused-const-variable
 ERRORS=-Werror=vla -Werror=strict-prototypes -Werror=implicit-fallthrough
