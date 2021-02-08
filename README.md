@@ -83,7 +83,9 @@ gwm is configured by editing the file `config.h` and recompiling.
 
 Compile and install:
 
-`make && sudo make install`
+```
+make && sudo make install
+```
 
 Start gwm by specifying it in your ~/.xinitrc:
 
