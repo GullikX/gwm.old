@@ -96,6 +96,18 @@ exec gwm
 and running `startx` from the tty.
 
 
+### Links
+
+* Project page: https://sr.ht/~gullik/gwm
+* Source code repo: https://git.sr.ht/~gullik/gwm
+* Repo mirrors:
+  * https://github.com/GullikX/gwm
+  * https://bitbucket.org/Gullik/gwm
+* Mailing list (discuss, report issues, submit patches, etc): https://lists.sr.ht/~gullik/gwm
+* Ticket tracker: https://todo.sr.ht/~gullik/gwm
+* Build service: https://builds.sr.ht/~gullik/gwm
+
+
 ### Acknowledgments
 
 * gwm is heavily inspired by dwm, written by the Suckless team. Check it out if you haven't: https://dwm.suckless.org
