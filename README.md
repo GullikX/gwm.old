@@ -101,8 +101,8 @@ and running `startx` from the tty.
 * Project page: https://sr.ht/~gullik/gwm
 * Source code repo: https://git.sr.ht/~gullik/gwm
 * Repo mirrors:
-  * https://github.com/GullikX/gwm
   * https://bitbucket.org/Gullik/gwm
+  * https://github.com/GullikX/gwm
 * Mailing list (discuss, report issues, submit patches, etc): https://lists.sr.ht/~gullik/gwm
 * Ticket tracker: https://todo.sr.ht/~gullik/gwm
 * Build service: https://builds.sr.ht/~gullik/gwm
