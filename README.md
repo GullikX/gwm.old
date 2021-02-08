@@ -64,9 +64,10 @@ The task-based nature of gwm not only simplifies keeping track of windows, but a
 gwm is configured by editing the file `config.h` and recompiling.
 
 
-### Project state
+### Notes
 
-gwm is in very early development, expect *lots* of problems.
+* gwm is a 100% tiling window manager. Any applications which require floating windows or specific window sizes *will* break.
+* gwm currently only supports single-monitor configurations.
 
 
 ### Dependencies
