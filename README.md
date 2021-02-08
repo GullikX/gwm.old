@@ -98,4 +98,4 @@ and running `startx` from the tty.
 
 ### Acknowledgments
 
-* gwm is heavily inspired by dwm, written by the Suckless team. Check in out if you haven't: https://dwm.suckless.org
+* gwm is heavily inspired by dwm, written by the Suckless team. Check it out if you haven't: https://dwm.suckless.org
